@@ -1,0 +1,17 @@
+{
+  "name": "cbs-beacons-server",
+  "version": "1.0.0",
+  "description": "Candian blood services app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Guelor Emanuel",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.3",
+    "jsonwebtoken": "^5.5.4",
+    "mongoose": "^4.3.5"
+  }
+}
