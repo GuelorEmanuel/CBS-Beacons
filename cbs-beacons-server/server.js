@@ -24,7 +24,7 @@ app.use(morgan('dev'));// for logging requests to the console
 
 
 //middleware to use for all requests
-//let protect use middleware to protecte /api/users
+//let protect :use middleware to protecte /api/users
 router.use(function(req, res, next){
   console.log("Let Party hard this weekend!");
   //let check the header for token

@@ -1,0 +1,18 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-estimote": {
+            "PACKAGE_NAME": "com.cbsbeacons.beacons"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.cbsbeacons.beacons"
+        }
+    },
+    "dependent_plugins": {}
+}
