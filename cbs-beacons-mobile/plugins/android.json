@@ -7,11 +7,29 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-estimote": {
-            "PACKAGE_NAME": "com.cbsbeacons.beacons"
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.cbsbeacons.beacons"
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
+        },
+        "cordova-plugin-estimote": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
+        },
+        "com.unarin.cordova.beacon": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
         }
     },
     "dependent_plugins": {}

@@ -1,4 +1,4 @@
 module.exports = {
   'secret': 'donatebloodtoday',
-  'database':'mongodb://localhost/test'
+  'database':'mongodb://127.0.0.1/test'
 };

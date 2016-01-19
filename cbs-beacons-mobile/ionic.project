@@ -1,0 +1,11 @@
+{
+  "name": "cbs-beacons-mobile",
+  "app_id": "",
+  "proxies":[
+    {
+      "path": "/api",
+      "proxyUrl": "http://127.0.0.1:3000/api"
+
+    }
+  ]
+}
