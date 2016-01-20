@@ -1,11 +1,18 @@
 {
   "name": "cbs-beacons-mobile",
   "app_id": "",
-  "proxies":[
+  "proxies": [
     {
       "path": "/api",
       "proxyUrl": "http://127.0.0.1:3000/api"
-
     }
+  ],
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
   ]
 }

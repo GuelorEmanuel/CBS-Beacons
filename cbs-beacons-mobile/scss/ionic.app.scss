@@ -18,6 +18,29 @@ $dark:                            #444 !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
+$positive:                        #ef473a !default;
+$balanced:                        #ef473a !default;
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.login {
+  background: url(../img/blood-home-logo.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 80%;
+  height: 246px;
+  margin: auto;
+  z-index: 2;
+  position: relative;
+}
+
+.classic_red {
+  color: red;
+}
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
-

@@ -36,7 +36,7 @@ angular.module('starter', ['ionic','ngCordova'])
   .state('outside.login', {
     url: '/login',
     templateUrl: 'templates/login.html',
-    controller: 'BeaconCtrl'
+    controller: 'LoginCtrl'
   })
 
   .state('outside.register', {
@@ -63,10 +63,22 @@ angular.module('starter', ['ionic','ngCordova'])
     url: 'main/public',
     views: {
         'public-tab': {
-          templateUrl: 'templates/public.html'
+          templateUrl: 'templates/public.html',
+          controller: 'DashCtrl'
+        }
+    }
+  })
+  .state('main.settings', {
+    url: 'main/settings',
+    views: {
+        'settings-tab': {
+          templateUrl: 'templates/settings.html',
+          controller: 'DashCtrl'
         }
     }
   });
+
+
 
   $urlRouterProvider.otherwise('/outside/login');
 })
