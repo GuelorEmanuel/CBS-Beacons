@@ -43,6 +43,14 @@
                         {
                             "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"NetworkStatus\"><param name=\"ios-package\" value=\"CDVConnection\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"BluetoothStatus\"><param name=\"ios-package\" value=\"BluetoothStatus\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -96,6 +104,12 @@
             "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
         },
         "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
+        },
+        "cordova-plugin-bluetooth-status": {
             "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
         }
     },
@@ -207,6 +221,31 @@
                 "cordova.plugins.Keyboard"
             ],
             "runs": true
+        },
+        {
+            "file": "plugins/cordova-plugin-network-information/www/network.js",
+            "id": "cordova-plugin-network-information.network",
+            "pluginId": "cordova-plugin-network-information",
+            "clobbers": [
+                "navigator.connection",
+                "navigator.network.connection"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-network-information/www/Connection.js",
+            "id": "cordova-plugin-network-information.Connection",
+            "pluginId": "cordova-plugin-network-information",
+            "clobbers": [
+                "Connection"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-bluetooth-status/BluetoothStatus.js",
+            "id": "cordova-plugin-bluetooth-status.BluetoothStatus",
+            "pluginId": "cordova-plugin-bluetooth-status",
+            "clobbers": [
+                "cordova.plugins.BluetoothStatus"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -217,6 +256,8 @@
         "cordova-plugin-splashscreen": "3.0.0",
         "cordova-plugin-statusbar": "2.0.0",
         "cordova-plugin-whitelist": "1.2.0",
-        "ionic-plugin-keyboard": "1.0.8"
+        "ionic-plugin-keyboard": "1.0.8",
+        "cordova-plugin-network-information": "1.2.0",
+        "cordova-plugin-bluetooth-status": "1.0.3"
     }
 }

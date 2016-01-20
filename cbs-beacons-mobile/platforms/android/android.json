@@ -35,6 +35,14 @@
                         {
                             "xml": "<feature name=\"LocationManager\"><param name=\"android-package\" value=\"com.unarin.cordova.beacon.LocationManager\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"NetworkStatus\"><param name=\"android-package\" value=\"org.apache.cordova.networkinformation.NetworkManager\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"BluetoothStatus\"><param name=\"android-package\" value=\"com.twofivefivekb.android.bluetoothstatus.BluetoothStatus\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -72,6 +80,24 @@
                             "xml": "<service android:enabled=\"true\" android:name=\"org.altbeacon.beacon.BeaconIntentProcessor\"><meta-data android:name=\"background\" android:value=\"true\" /><intent-filter android:priority=\"1\"><action android:name=\"com.unarin.cordova.beacon.IBeaconPlugin.DID_RANGING\" /><action android:name=\"com.unarin.cordova.beacon.IBeaconPlugin.DID_MONITORING\" /></intent-filter></service>",
                             "count": 1
                         }
+                    ],
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.BLUETOOTH\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-feature android:name=\"android.hardware.bluetooth_le\" android:required=\"false\" />",
+                            "count": 1
+                        }
                     ]
                 }
             }
@@ -100,6 +126,12 @@
             "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
         },
         "com.unarin.cordova.beacon": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
+        },
+        "cordova-plugin-bluetooth-status": {
             "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
         }
     },
@@ -201,6 +233,31 @@
             "id": "com.unarin.cordova.beacon.BeaconRegion",
             "pluginId": "com.unarin.cordova.beacon",
             "runs": true
+        },
+        {
+            "file": "plugins/cordova-plugin-network-information/www/network.js",
+            "id": "cordova-plugin-network-information.network",
+            "pluginId": "cordova-plugin-network-information",
+            "clobbers": [
+                "navigator.connection",
+                "navigator.network.connection"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-network-information/www/Connection.js",
+            "id": "cordova-plugin-network-information.Connection",
+            "pluginId": "cordova-plugin-network-information",
+            "clobbers": [
+                "Connection"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-bluetooth-status/BluetoothStatus.js",
+            "id": "cordova-plugin-bluetooth-status.BluetoothStatus",
+            "pluginId": "cordova-plugin-bluetooth-status",
+            "clobbers": [
+                "cordova.plugins.BluetoothStatus"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -211,6 +268,8 @@
         "cordova-plugin-whitelist": "1.2.0",
         "ionic-plugin-keyboard": "1.0.8",
         "cordova-plugin-estimote": "0.8.0",
-        "com.unarin.cordova.beacon": "3.3.0"
+        "com.unarin.cordova.beacon": "3.3.0",
+        "cordova-plugin-network-information": "1.2.0",
+        "cordova-plugin-bluetooth-status": "1.0.3"
     }
 }

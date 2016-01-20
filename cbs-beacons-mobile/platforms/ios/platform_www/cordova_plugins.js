@@ -106,6 +106,31 @@ module.exports = [
             "cordova.plugins.Keyboard"
         ],
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-network-information/www/network.js",
+        "id": "cordova-plugin-network-information.network",
+        "pluginId": "cordova-plugin-network-information",
+        "clobbers": [
+            "navigator.connection",
+            "navigator.network.connection"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-network-information/www/Connection.js",
+        "id": "cordova-plugin-network-information.Connection",
+        "pluginId": "cordova-plugin-network-information",
+        "clobbers": [
+            "Connection"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-bluetooth-status/BluetoothStatus.js",
+        "id": "cordova-plugin-bluetooth-status.BluetoothStatus",
+        "pluginId": "cordova-plugin-bluetooth-status",
+        "clobbers": [
+            "cordova.plugins.BluetoothStatus"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -118,7 +143,9 @@ module.exports.metadata =
     "cordova-plugin-splashscreen": "3.0.0",
     "cordova-plugin-statusbar": "2.0.0",
     "cordova-plugin-whitelist": "1.2.0",
-    "ionic-plugin-keyboard": "1.0.8"
+    "ionic-plugin-keyboard": "1.0.8",
+    "cordova-plugin-network-information": "1.2.0",
+    "cordova-plugin-bluetooth-status": "1.0.3"
 }
 // BOTTOM OF METADATA
 });

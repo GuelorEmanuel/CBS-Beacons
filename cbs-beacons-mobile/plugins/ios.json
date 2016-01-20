@@ -30,6 +30,12 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
+        },
+        "cordova-plugin-bluetooth-status": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
         }
     },
     "dependent_plugins": {}

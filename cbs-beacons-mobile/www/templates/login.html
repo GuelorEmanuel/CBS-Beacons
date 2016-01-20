@@ -1,27 +1,14 @@
-<ion-view view-title="Sign-In" name="login-view" ng-controller="BeaconCtrl">
+<ion-view view-title="Sign-In" name="login-view">
   <ion-content class="padding">
     <div class="list">
-      <div class="item" >
-        <div class="row">
-          <div class="col truncate">
-            {{cake}}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            {{isAndroid}}
-          </div>
-          <div class="col">
-            {{value.minor}}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            {{didStartMonitoringForRegionLog}}
-          </div>
-        </div>
-
-      </div>
+      <label class="item item-input">
+        <input type="text" placeholder="Name" ng-model="user.name">
+      </label>
+      <label class="item item-input">
+        <input type="password" placeholder="Password" ng-model="user.password">
+      </label>
     </div>
+    <button class="button button-full button-balanced" ng-click="login()">Login</button>
+    <button class="button button-positive button-clear button-full" ui-sref="outside.register">Sign Up now!</button>
   </ion-content>
 </ion-view>

@@ -84,14 +84,82 @@ angular.module('starter', ['ionic','ngCordova'])
 })
 
 .run(function($ionicPlatform, $ionicPopup){
+  document.addEventListener("resume", function(){
+    $ionicPlatform.ready(function(){
+      cordova.plugins.locationManager.isBluetoothEnabled()
+      .then(function(isEnabled){
+        console.log("isEnabled: " + isEnabled);
+        if (isEnabled){
+          //cordova.plugins.locationManager.disableBluetooth();
+        }else {
+          console.log("isDisabled");
+        }
+      })
+      .fail(console.error)
+      .done();
+
+    });
+
+  }, false);
+
+}).run(function($ionicPlatform, $ionicPopup){
   $ionicPlatform.ready(function(){
+
+    document.addEventListener("offline", function(){
+      $ionicPopup.confirm({
+        title: "Internet Disconnected",
+        content: "The internet is disconnected on your device."
+      })
+      .then(function(result){
+        if(!result){
+          ionic.Platform.exitApp();
+        }
+      });
+
+    }, false);
+
+  });
+}).run(function($ionicPlatform, $ionicPopup){
+  $ionicPlatform.ready(function(){
+    cordova.plugins.BluetoothStatus.initPlugin();
+
+    window.addEventListener('BluetoothStatus.disabled', function(){
+      $ionicPopup.confirm({
+        title: "Bluetooth services Disabled",
+        content: "Please enable Bluetooth services",
+        cancelText: 'exit App',
+        okText: 'enable'
+      })
+      .then(function(result){
+        if(!result){
+          ionic.Platform.exitApp();
+        }else{
+          cordova.plugins.locationManager.enableBluetooth(); //android only
+
+        }
+      });
+    });
+
     cordova.plugins.locationManager.isBluetoothEnabled()
     .then(function(isEnabled){
-      console.log("isEnabled: " + isEnabled);
-      if (isEnabled){
-        cordova.plugins.locationManager.disableBluetooth();
-      }else {
-        console.log("isDisabled");
+      if(isEnabled){
+
+      }else{
+        $ionicPopup.confirm({
+          title: "Bluetooth services Disabled",
+          content: "Please enable Bluetooth services",
+          cancelText: 'exit App',
+          okText: 'enable'
+        })
+        .then(function(result){
+          if(!result){
+            ionic.Platform.exitApp();
+          }else{
+            cordova.plugins.locationManager.enableBluetooth(); //android only
+
+          }
+        });
+
       }
     })
     .fail(console.error)
