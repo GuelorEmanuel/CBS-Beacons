@@ -64,13 +64,17 @@ angular.module('starter')
    function($scope, $rootScope, $ionicPlatform, $cordovaBeacon) {
 
   var brIdentifier = 'estimote';
-  var brUuid = 'b9407f30-f5f8-466e-aff9-25556b57fe6d';
+  var brUuid = 'B9407F30-F5F8-466E-AFF9-25556B57FE6D';
   var brMajor = null;
   var brMinor = null;
   var brNotifyEntryStateOnDisplay = true;
+  $scope.cake = "Cakessss";
+  //platForm(), version()
+  var deviceInformation = ionic.Platform.platform();
+  $scope.isAndroid      = deviceInformation;
+  //ionic.Platform.exitApp();
 
   $ionicPlatform.ready(function () {
-
     $scope.didStartMonitoringForRegionLog = '';
     $scope.didDetermineStateForRegionLog = '';
     $scope.didRangeBeaconsInRegionLog = '';

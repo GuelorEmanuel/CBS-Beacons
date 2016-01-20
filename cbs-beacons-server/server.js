@@ -60,7 +60,7 @@ router.post('/authenticate',function(req, res){
 
 router.get('/setup', function(req, res){
   var nick = new User({ // new user
-    firsName: 'Marcio',
+    firstName: 'Marcio',
     lastName: 'Zhu',
     email: 'password',
     userName: 'marcio',

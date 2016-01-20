@@ -21,7 +21,6 @@ angular.module('starter', ['ionic','ngCordova'])
       StatusBar.styleDefault();
     }
 
-
   });
 })
 
@@ -81,5 +80,22 @@ angular.module('starter', ['ionic','ngCordova'])
         $state.go('outside.login');
       }
     }
+  });
+})
+
+.run(function($ionicPlatform, $ionicPopup){
+  $ionicPlatform.ready(function(){
+    cordova.plugins.locationManager.isBluetoothEnabled()
+    .then(function(isEnabled){
+      console.log("isEnabled: " + isEnabled);
+      if (isEnabled){
+        cordova.plugins.locationManager.disableBluetooth();
+      }else {
+        console.log("isDisabled");
+      }
+    })
+    .fail(console.error)
+    .done();
+
   });
 });
