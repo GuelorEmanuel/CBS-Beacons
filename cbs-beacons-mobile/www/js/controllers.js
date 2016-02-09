@@ -65,13 +65,13 @@ angular.module('starter')
 
   var brIdentifier = 'estimote';
   var brUuid = 'B9407F30-F5F8-466E-AFF9-25556B57FE6D';
-  var brMajor = null;
-  var brMinor = null;
+  var brMajor = 15357;
+  var brMinor = 18805;
   var brNotifyEntryStateOnDisplay = true;
-  $scope.cake = "Cakessss";
+
   //platForm(), version()
-  var deviceInformation = ionic.Platform.platform();
-  $scope.isAndroid      = deviceInformation;
+  var deviceInformation = ionic.Platform;
+  $scope.deviceInfo      = deviceInformation;
   //ionic.Platform.exitApp();
 
   $ionicPlatform.ready(function () {

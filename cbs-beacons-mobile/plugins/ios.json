@@ -7,16 +7,10 @@
         "files": {}
     },
     "installed_plugins": {
-        "com.unarin.cordova.beacon": {
-            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
-        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
-        },
-        "cordova-plugin-estimote": {
             "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
         },
         "cordova-plugin-splashscreen": {
@@ -35,6 +29,9 @@
             "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
         },
         "cordova-plugin-bluetooth-status": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
+        },
+        "com.unarin.cordova.beacon": {
             "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
         }
     },

@@ -3,22 +3,24 @@
     <div class="item" >
       <div class="row">
         <div class="col truncate">
-          {{didStartMonitoringForRegionLog}}
+          {{deviceInfo.platform()}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{deviceInfo.version()}}
+        </div>
+        <div class="col">
+          {{deviceInfo.isWebView()}}
         </div>
       </div>
       <div class="row">
         <div class="col">
           {{didStartMonitoringForRegionLog}}
         </div>
-        <div class="col">
-          {{value.minor}}
-        </div>
       </div>
-      <div class="row">
-        <div class="col">
-          {{didStartMonitoringForRegionLog}}
-        </div>
-      </div>
+      <button class="button button-full button-assertive"ng-click="startMonitoringForRegion()">startBeaconTest</button>
+
 
     </div>
   </div>

@@ -47,23 +47,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-estimote": {
-        "source": {
-            "type": "git",
-            "url": "https://github.com/evothings/phonegap-estimotebeacons.git",
-            "subdir": "."
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
-    "com.unarin.cordova.beacon": {
-        "source": {
-            "type": "registry",
-            "id": "com.unarin.cordova.beacon"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-network-information": {
         "source": {
             "type": "registry",
@@ -76,6 +59,14 @@
         "source": {
             "type": "registry",
             "id": "cordova-plugin-bluetooth-status"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.unarin.cordova.beacon": {
+        "source": {
+            "type": "registry",
+            "id": "com.unarin.cordova.beacon"
         },
         "is_top_level": true,
         "variables": {}
