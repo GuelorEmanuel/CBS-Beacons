@@ -1,27 +1,23 @@
+<ion-view view-title="Test-Beacon" name="Test-view">
 <ion-content class="padding">
   <div class="list">
-    <div class="item" >
+    <div class="item" ng-repeat="(key, value) in beacons">
       <div class="row">
         <div class="col truncate">
-          {{deviceInfo.platform()}}
+          {{value.uuid}}
         </div>
       </div>
       <div class="row">
         <div class="col">
-          {{deviceInfo.version()}}
-        </div>
-        <div class="col">
-          {{deviceInfo.isWebView()}}
+          major: {{value.major}}
         </div>
       </div>
       <div class="row">
         <div class="col">
-          {{didStartMonitoringForRegionLog}}
+          {{value.proximity}}
         </div>
       </div>
-      <button class="button button-full button-assertive"ng-click="startMonitoringForRegion()">startBeaconTest</button>
-
-
     </div>
   </div>
 </ion-content>
+</ion-view>

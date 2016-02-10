@@ -65,9 +65,10 @@ angular.module('starter')
 
   var brIdentifier = 'estimote';
   var brUuid = 'B9407F30-F5F8-466E-AFF9-25556B57FE6D';
-  var brMajor = 15357;
-  var brMinor = 18805;
+  var brMajor = null;
+  var brMinor = null;
   var brNotifyEntryStateOnDisplay = true;
+  $scope.beacons = {};
 
   //platForm(), version()
   var deviceInformation = ionic.Platform;
@@ -123,10 +124,22 @@ angular.module('starter')
       $scope.didDetermineStateForRegionLog += JSON.stringify(pluginResult) + '\n';
     });
 
+    $scope.requestAlwaysAuthorization();
     $rootScope.$on("$cordovaBeacon:didRangeBeaconsInRegion", function (event, pluginResult) {
       $scope.didRangeBeaconsInRegionLog += '-----' + '\n';
       $scope.didRangeBeaconsInRegionLog += JSON.stringify(pluginResult) + '\n';
+
+        var uniqueBeaconKey;
+
+        for (var i = 0; i < pluginResult.beacons.length; i++) {
+          uniqueBeaconKey = pluginResult.beacons[i].uuid + ":" + pluginResult.beacons[i].major + ":"+ pluginResult.beacons[i].minor;
+
+          $scope.beacons[uniqueBeaconKey] = pluginResult.beacons[i];
+        }
+        $scope.$apply();
     });
+    $scope.startRangingBeaconsInRegion();
+    /*$cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion("estimote","B9407F30-F5F8-466E-AFF9-25556B57FE6D", null, null,true ));*/
 
     // =========/ Events
 
