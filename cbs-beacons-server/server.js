@@ -8,7 +8,8 @@ var morgan          = require('morgan');
 
 var jwt             = require('jsonwebtoken');
 var config          = require('./config');
-var cors            = require('cors');
+var moment          = require('moment');
+//var cors            = require('cors');
 
 
 
@@ -16,13 +17,15 @@ var router = express.Router();  // let get an instance of the express Router
 var port = process.env.PORT || 3000; //set the port
 mongoose.connect(config.database);
 app.set('superSecret', config.secret);
+
+
 //configure app to use bodyParser()
 //this will let is get the data from a POST
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(morgan('dev'));// for logging requests to the console
-app.use(cors());
+//app.use(cors());
 
 
 //route to authenticate a user (POST http://localhost:3000/api/authenticate)
@@ -47,8 +50,9 @@ router.post('/authenticate',function(req, res){
           res.json({
             success: true,
             msg: 'Enjoy your token',
-            token: token
-
+            token: token,
+            firstname: user.firstName,
+            lastname: user.lastName
           });
         } else{
           res.json({success: false, msg: 'Authentication failed. Wrong password.'});
@@ -78,7 +82,8 @@ router.get('/setup', function(req, res){
 });
 
 router.get('/', function(req, res) {
-  res.json({msg: 'welcome to our api!'});
+  var curenntDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+  res.json({msg: 'welcome to our api! '+ 'Date: '+ curenntDate});
 });
 
 // on rotes that end in /Users
@@ -124,17 +129,17 @@ router.route('/signup').post(function(req, res){
 router.use(function(req, res, next){
   console.log("Let Party hard this weekend!");
   //let check the header for token
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  var token = req.body.token || req.query.token || req.headers['x-access-token'] || getToken(req.headers);
 
   //decode token
   if (token) {
     //let verifies secret and check exp
-    jwt.verify(token, app.get('superSecret'), function(err, decoded){
+    jwt.verify(token, app.get('superSecret'), function(err, decoded) {
       if(err){
         return res.json({success: false, msg:'Failed to authenticate token.'});
       }else {
         // Oh yes, you can have our cakes
-        req.decoded = decoded;
+        req.decoded = decoded._doc;
         next(); // for going to the next routes and dont stop here
       }
     });
@@ -142,7 +147,7 @@ router.use(function(req, res, next){
     // There is no more tokens
     return res.status(403).send({
       success:false,
-      msg: 'No token provided.'
+      msg: 'No token provided. :'+ token
     });
   }
 });
@@ -152,6 +157,19 @@ router.get('/users', function(req, res){
     res.json(users);
   });
 });
+
+router.get('/memberinfo', function(req, res){
+  var decoded = req.decoded;
+
+  if (!decoded) {
+    return res.status(403).send({success: false,
+      msg: 'Authentication failed. User not found. '});
+  } else {
+    res.json({success: true, msg: 'Welcome in the member area '+
+    decoded.firstName +' '+ decoded.lastName});
+  }
+});
+
 // on route that end in /users/:user_id
 router.route('/users/:user_id').get(function(req, res){
   User.findById(req.params.user_id, function(err, user){
@@ -183,6 +201,19 @@ router.route('/users/:user_id').get(function(req, res){
     res.json({message:"Succesfully deleted"});
   });
 });
+
+function getToken(headers) {
+  if (headers && headers.authorization) {
+    var parted = headers.authorization.split(' ');
+    if (parted.length === 2) {
+      return parted[1];
+    } else {
+      return null;
+    }
+  } else {
+    return null;
+  }
+};
 //all of our routes will be prefixed with /api
 app.use('/api', router);
 app.listen(port);

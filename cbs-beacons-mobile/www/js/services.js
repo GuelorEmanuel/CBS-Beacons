@@ -23,7 +23,7 @@ angular.module('starter')
     authToken = token;
 
     // Set the token as header for your requests!x-access-token'
-    $http.defaults.headers.common.Authorization = authToken;
+    $http.defaults.headers.common['Authorization'] = "Bearer "+authToken;
   }
 
   function destroyUserCredentials() {

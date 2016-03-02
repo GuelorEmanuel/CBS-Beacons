@@ -35,8 +35,8 @@ angular.module('starter', ['ionic','ngCordova'])
 
   .state('outside.login', {
     url: '/login',
-    templateUrl: 'templates/test.html',
-    controller: 'BeaconCtrl'
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl'
   })
 
   .state('outside.register', {

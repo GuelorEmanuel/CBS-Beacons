@@ -39,6 +39,10 @@
                         {
                             "xml": "<feature name=\"LocationManager\"><param name=\"android-package\" value=\"com.unarin.cordova.beacon.LocationManager\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"DatePickerPlugin\"><param name=\"android-package\" value=\"com.plugin.datepicker.DatePickerPlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -121,6 +125,9 @@
             "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
         },
         "com.unarin.cordova.beacon": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
+        },
+        "cordova-plugin-datepicker": {
             "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
         }
     },
@@ -239,6 +246,14 @@
             "id": "com.unarin.cordova.beacon.BeaconRegion",
             "pluginId": "com.unarin.cordova.beacon",
             "runs": true
+        },
+        {
+            "file": "plugins/cordova-plugin-datepicker/www/android/DatePicker.js",
+            "id": "cordova-plugin-datepicker.DatePicker",
+            "pluginId": "cordova-plugin-datepicker",
+            "clobbers": [
+                "datePicker"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -250,6 +265,7 @@
         "ionic-plugin-keyboard": "1.0.8",
         "cordova-plugin-network-information": "1.2.0",
         "cordova-plugin-bluetooth-status": "1.0.3",
-        "com.unarin.cordova.beacon": "3.3.0"
+        "com.unarin.cordova.beacon": "3.3.0",
+        "cordova-plugin-datepicker": "0.9.2"
     }
 }

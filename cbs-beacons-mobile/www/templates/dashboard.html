@@ -1,4 +1,4 @@
-<ion-view View-title="Home" name="dashboard-view">
+<ion-view View-title="Home" name="dashboard-view" ng-controller="BeaconCtrl">
   <ion-nav-buttons side="right">
     <button class="button icon-left ion-log-out button-stable" ng-click="logout()">Logout
     </button>
@@ -7,10 +7,10 @@
   <ion-content class="padding">
     <div class="row">
       <div class="col text-center">
-        <h3 class="tittle">Welcome {{userName}}!</h3>
+        <h3 class="tittle">{{memberinfo}}</h3>
         The time stamp will be here.
         <br><br><br>
-        <button class="button button-full button-positive" ng-click="performValidRequest()"> Check Valid Request</button>
+        <button class="button button-full button-positive" ng-click="getInfo()"> Check Valid Request</button>
         <button class="button button-full button-energize" ng-click="performUnauthorizedRequest()"> Make Request for unauthorized resource</button>
         <button class="button button-full button-assertive" ng-click="performInvalidRequest()"> Check request without token</button>
         <br><br>

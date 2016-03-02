@@ -123,6 +123,14 @@ module.exports = [
         "id": "com.unarin.cordova.beacon.BeaconRegion",
         "pluginId": "com.unarin.cordova.beacon",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-datepicker/www/ios/DatePicker.js",
+        "id": "cordova-plugin-datepicker.DatePicker",
+        "pluginId": "cordova-plugin-datepicker",
+        "clobbers": [
+            "datePicker"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -136,7 +144,8 @@ module.exports.metadata =
     "ionic-plugin-keyboard": "1.0.8",
     "cordova-plugin-network-information": "1.2.0",
     "cordova-plugin-bluetooth-status": "1.0.3",
-    "com.unarin.cordova.beacon": "3.3.0"
+    "com.unarin.cordova.beacon": "3.3.0",
+    "cordova-plugin-datepicker": "0.9.2"
 }
 // BOTTOM OF METADATA
 });

@@ -153,6 +153,14 @@ angular.module('starter')
     $state.go('outside.login');
   };
 
+  $scope.getInfo =function() {
+    $http.get(API_ENDPOINT.url + '/memberinfo').then(
+      function(result) {
+        $scope.memberinfo = result.data.msg;
+      }, function(err){
+        $scope.memberinfo = err.data.msg;
+      });
+  };
   $scope.performValidRequest = function() {
     $http.get(API_ENDPOINT.url + '/valid').then(
       function(result) {

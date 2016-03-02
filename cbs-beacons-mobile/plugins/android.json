@@ -33,6 +33,9 @@
         },
         "com.unarin.cordova.beacon": {
             "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
+        },
+        "cordova-plugin-datepicker": {
+            "PACKAGE_NAME": "com.ionicframework.cbsbeaconsmobile824934"
         }
     },
     "dependent_plugins": {}
