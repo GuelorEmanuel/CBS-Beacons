@@ -43,12 +43,12 @@ angular.module('starter')
 
   $scope.signup = function() {
     AuthService.register($scope.user).then(function(msg) {
-      $state.go('outside.login');
 
       var alertPopup = $ionicPopup.alert({
         title: 'Register success!',
-        template: errMsg
+        template: msg
       });
+      $state.go('outside.login');
     }, function(errMsg) {
       var alertPopup = $ionicPopup.alert({
         title: 'Register failed!',
@@ -152,15 +152,18 @@ angular.module('starter')
     AuthService.logout();
     $state.go('outside.login');
   };
+  var currentDate= new Date();
 
-  $scope.getInfo =function() {
-    $http.get(API_ENDPOINT.url + '/memberinfo').then(
-      function(result) {
-        $scope.memberinfo = result.data.msg;
-      }, function(err){
-        $scope.memberinfo = err.data.msg;
-      });
-  };
+  $scope.date = currentDate.getFullYear()+ "-"+currentDate.getMonth()+"-"+currentDate.getDay();
+  $scope.time = currentDate.getHours()+":"+currentDate.getMinutes();
+  $scope.$apply();
+  $http.get(API_ENDPOINT.url + '/memberinfo').then(
+    function(result) {
+      $scope.memberinfo = result.data.msg;
+    }, function(err){
+      $scope.memberinfo = err.data.msg;
+  });
+
   $scope.performValidRequest = function() {
     $http.get(API_ENDPOINT.url + '/valid').then(
       function(result) {
@@ -185,4 +188,22 @@ angular.module('starter')
         $scope.response = result.data.err;
       });
   };
+  $scope.updatePassword = function() {
+    $scope.user = {
+      oldPassword: '',
+      newPassword: '',
+      reNewPassword: ''
+    };
+
+    //var x = user.newPassword === user.reNewPassword;
+
+      var alertPopup = $ionicPopup.alert({
+        title: 'Re!',
+        template: user.oldPassword
+    });
+
+};
+
+
+
 });

@@ -46,6 +46,18 @@ angular.module('starter')
     });
   };
 
+  var updatePassword = function(user) {
+    return $q(function(resolve, reject) {
+      $http.post(API_ENDPOINT.url + '/users/:user_id', user).then(function(result){
+        if (result.data.success) {
+          resolve(result.data.msg);
+        }else{
+          reject(result.data.msg);
+        }
+      });
+    });
+  };
+
   var login = function(user) {
     return $q(function(resolve, reject) {
       $http.post(API_ENDPOINT.url + '/authenticate', user).then(function(result){

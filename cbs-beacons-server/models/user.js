@@ -24,7 +24,9 @@ var UserSchema = new Schema({
   password: {
     type: String,
     required: true
-  } // password should be hashed before saving
+  }, // password should be hashed before saving
+  timeStamp: [{beacon:String, date:Date }],
+  date: {type:Date, default:Date.now}
 });
 
 UserSchema.pre('save', function(next) {
