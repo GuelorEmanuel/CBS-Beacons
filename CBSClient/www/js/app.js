@@ -8,6 +8,7 @@ require('./modules/register/register');
 require('./modules/nurse/nurse');
 require('./modules/help/help');
 require('./modules/donations/donations');
+require('./modules/manage/manage');
 
 
 module.exports = angular.module('starter', [
@@ -16,7 +17,8 @@ module.exports = angular.module('starter', [
     'register',
     'nurse',
     'help',
-    'donations'
+    'donations',
+    'manage'
   ])
   .config(require('./router'))
   .run(require('./app-main'))

@@ -48,7 +48,7 @@ function RegisterController($scope, $state, $ionicPopup) {
             /*
             CHANGE THE PLACE HERE TO GO TO MANAGE APPOINTMENT
              */
-            $state.go('outside.donations');
+            $state.go('outside.manage');
           }
         });
       }
