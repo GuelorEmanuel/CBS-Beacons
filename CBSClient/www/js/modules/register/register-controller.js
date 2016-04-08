@@ -24,34 +24,30 @@ function RegisterController($scope, $state, $ionicPopup) {
       title: 'Confirmation!',
       template: 'Are you sure you want to book this appointment?',
       buttons: [
-        { text: "Yes" },
+        { text: "Yes",
+          onTap: function(e) {
+            $ionicPopup.show({
+              title: 'Success!',
+              template: 'Success! You have booked your appointment. You can complete the medical forms now or access them later through the Manage Appointment screen in the main menu.',
+              buttons: [
+                {
+                  text: "Complete forms",
+                  onTap: function(e) {
+                    $state.go('outside.donations');
+                  }
+                },
+                {
+                  text: 'Finish later',
+                  onTap: function(e) {
+                    $state.go('outside.menu');
+                  }
+                }
+              ]
+            });
+          }
+        },
         { text: "No" }
       ]
-    })
-    .then(function(res) {
-      if (res) {
-        console.log("first");
-      }
-      else {
-        $ionicPopup.show({
-          title: 'Success!',
-          template: 'Success! You have booked your appointment. You can complete the medical forms now or access them later through the Manage Appointment screen in the main menu.',
-          buttons: [
-            { text: "Complete forms" },
-            { text: 'Finish later' }
-          ]
-        }).then(function(res) {
-          if(res) {
-            console.log("second");
-          }
-          else {
-            /*
-            CHANGE THE PLACE HERE TO GO TO MANAGE APPOINTMENT
-             */
-            $state.go('outside.manage');
-          }
-        });
-      }
     });
   };
 
