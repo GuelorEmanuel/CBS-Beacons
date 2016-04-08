@@ -9,6 +9,9 @@ require('./modules/dashboard/dashboard');
 require('./modules/nurse/nurse');
 require('./modules/help/help');
 require('./modules/donations/donations');
+require('./modules/manage/manage');
+require('./modules/menu/menu');
+
 
 module.exports = angular.module('starter', [
     'ionic',
@@ -17,7 +20,9 @@ module.exports = angular.module('starter', [
     'dashboard',
     'nurse',
     'help',
-    'donations'
+    'donations',
+    'manage',
+    'menu'
   ])
   .config(require('./router'))
   .run(require('./app-main'))

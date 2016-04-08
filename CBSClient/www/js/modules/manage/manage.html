@@ -1,0 +1,31 @@
+<ion-view title="My Appointments" xmlns="http://www.w3.org/1999/html">
+    <ion-content class="padding">
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Appointment:
+                    </div>
+                    <select>
+                        <option>Feb. 1st, 2016</option>
+                        <option selected>Jan. 21st, 2016</option>
+                        <option>March 17th, 2016</option>
+                    </select>
+                </label>
+                <label class="item item-input item-select">
+                   <div class="input-label">
+                      What is your blood type?
+                   </div>
+                  <select>
+                      <option>A</option>
+                      <option selected>B</option>
+                      <option>AB</option>
+                      <option>O</option>
+                   </select>
+                </label>
+        &nbsp;
+        <ion-checkbox class="item-text-wrap">Have you ever been diagnosed with Type I or Type II diabetes?</ion-checkbox>
+        <ion-checkbox class="item-text-wrap">Have you ever been diagnosed with a blood clotting disorder?</ion-checkbox>
+        <ion-checkbox class="item-text-wrap">Do you have low or high blood pressure?</ion-checkbox>
+        <ion-checkbox class="item-text-wrap">Have you ever been diagnosed with low blood sugar?</ion-checkbox>
+        <button class="button button-full button-assertive" ng-click="submit()">Complete form</button>
+    </ion-content>
+</ion-view>

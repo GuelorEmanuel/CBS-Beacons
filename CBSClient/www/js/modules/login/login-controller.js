@@ -33,7 +33,9 @@ function LoginController($scope, $ionicModal, $timeout, $location) {
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
-    $location.path('/main/dash');
+
+    $location.path('/outside/menu');
+
     console.log("console");
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system

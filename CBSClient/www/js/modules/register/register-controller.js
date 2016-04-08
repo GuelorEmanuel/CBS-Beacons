@@ -30,7 +30,7 @@ function RegisterController($scope, $state, $ionicPopup) {
     })
     .then(function(res) {
       if (res) {
-
+        console.log("first");
       }
       else {
         $ionicPopup.show({
@@ -42,13 +42,13 @@ function RegisterController($scope, $state, $ionicPopup) {
           ]
         }).then(function(res) {
           if(res) {
-
+            console.log("second");
           }
           else {
             /*
             CHANGE THE PLACE HERE TO GO TO MANAGE APPOINTMENT
              */
-            $state.go('outside.donations');
+            $state.go('outside.manage');
           }
         });
       }
