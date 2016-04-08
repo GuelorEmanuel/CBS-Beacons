@@ -1,6 +1,6 @@
 'use strict';
 
-function RegisterController($scope, $state, $ionicPopup, AuthService) {
+function RegisterController($scope, $state, $ionicPopup) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -45,7 +45,10 @@ function RegisterController($scope, $state, $ionicPopup, AuthService) {
 
           }
           else {
-            $state.go('outside.nurse');
+            /*
+            CHANGE THE PLACE HERE TO GO TO MANAGE APPOINTMENT
+             */
+            $state.go('outside.help');
           }
         });
       }
