@@ -8,7 +8,8 @@ module.exports = ['$stateProvider', '$urlRouterProvider',
       .state('outside', {
         url: '/outside',
         abstract: true,
-        templateUrl: 'js/modules/outside/outside.html'
+        templateUrl: 'js/modules/outside/outside.html',
+				controller: 'LoginController as loginController'
       })
 
       .state('outside.login', {
