@@ -33,7 +33,7 @@ function RegisterController($scope, $state, $ionicPopup) {
                 {
                   text: "Complete forms",
                   onTap: function(e) {
-                    $state.go('outside.donations');
+                    $state.go('outside.manage');
                   }
                 },
                 {
