@@ -1,0 +1,20 @@
+<ion-view View-title="Home" name="dashboard-view" ng-controller="BeaconCtrl">
+  <ion-nav-buttons side="right">
+    <button class="button icon-left ion-log-out button-stable" ng-click="logout()">Logout
+    </button>
+  </ion-nav-buttons>
+
+  <ion-content class="padding">
+    <div class="row">
+      <div class="col text-center">
+        <div class="item item-text-wrap">
+          <h1 class="tittle">{{memberinfo}}</h1>
+          <div class="item item-text-wrap">
+            <h2>Date: {{date}}</h2>
+            <h2>Time: {{time}}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
