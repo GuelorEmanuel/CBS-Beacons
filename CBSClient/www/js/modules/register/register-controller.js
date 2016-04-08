@@ -17,22 +17,42 @@ function RegisterController($scope, $state, $ionicPopup, AuthService) {
     password: ''
   };
 
+  console.log("in the controller");
   $scope.signup = function() {
-    AuthService.register($scope.user).then(function(msg) {
 
-      var alertPopup = $ionicPopup.alert({
-        title: 'Register success!',
-        template: msg
-      });
-      $state.go('outside.login');
-    }, function(errMsg) {
-      var alertPopup = $ionicPopup.alert({
-        title: 'Register failed!',
-        template: errMsg
-      });
+    var alertPopup = $ionicPopup.show({
+      title: 'Confirmation!',
+      template: 'Are you sure you want to book this appointment?',
+      buttons: [
+        { text: "Yes" },
+        { text: "No" }
+      ]
+    })
+    .then(function(res) {
+      if (res) {
+
+      }
+      else {
+        $ionicPopup.show({
+          title: 'Success!',
+          template: 'Success! You have booked your appointment. You can complete the medical forms now or access them later through the Manage Appointment screen in the main menu.',
+          buttons: [
+            { text: "Complete forms" },
+            { text: 'Finish later' }
+          ]
+        }).then(function(res) {
+          if(res) {
+
+          }
+          else {
+            $state.go('outside.nurse');
+          }
+        });
+      }
     });
   };
 
 
+
 }
-module.exports = ['$scope', '$state', '$ionicPopup', 'AuthService', RegisterController];
+module.exports = ['$scope', '$state', '$ionicPopup', RegisterController];
