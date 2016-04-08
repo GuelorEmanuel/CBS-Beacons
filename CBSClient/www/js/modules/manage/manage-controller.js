@@ -34,7 +34,7 @@ function ManageController($scope, $ionicModal, $timeout, $location, $ionicPopup,
                 /*
                  CHANGE THE PLACE HERE TO GO TO MANAGE APPOINTMENT
                  */
-                $state.go('outside.donations');
+                $state.go('outside.menu');
             }
         });
     };
