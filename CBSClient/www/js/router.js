@@ -29,6 +29,12 @@ module.exports = ['$stateProvider', '$urlRouterProvider',
                 controller: "HelpController as helpController"
             })
 
+            .state('outside.donations', {
+                url: '/help',
+                templateUrl: 'js/modules/donations/donations.html',
+                controller: "DonationsController as donationsController"
+            })
+
             .state('outside.register', {
                 url: '/register',
                 templateUrl: 'js/modules/register/register.html',
