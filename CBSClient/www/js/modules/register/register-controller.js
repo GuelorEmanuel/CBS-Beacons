@@ -30,7 +30,7 @@ function RegisterController($scope, $state, $ionicPopup) {
     })
     .then(function(res) {
       if (res) {
-
+        console.log("first");
       }
       else {
         $ionicPopup.show({
@@ -42,7 +42,7 @@ function RegisterController($scope, $state, $ionicPopup) {
           ]
         }).then(function(res) {
           if(res) {
-
+            console.log("second");
           }
           else {
             /*

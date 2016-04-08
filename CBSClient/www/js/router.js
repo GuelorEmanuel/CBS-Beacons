@@ -41,6 +41,12 @@ module.exports = ['$stateProvider', '$urlRouterProvider',
                 controller: "ManageController as manageController"
             })
 
+            .state('outside.menu', {
+                url: '/menu',
+                templateUrl: 'js/modules/menu/menu.html',
+                controller: "MenuController as menuController"
+            })
+
             .state('outside.register', {
                 url: '/register',
                 templateUrl: 'js/modules/register/register.html',
