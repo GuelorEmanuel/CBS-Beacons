@@ -1,4 +1,5 @@
 'use strict';
 
 module.exports = angular.module('login', [])
-	.controller('LoginController', require('./login-controller'));		
+	.factory('LoginService', require('../interceptors/auth'))
+	.controller('LoginController', require('./login-controller'));

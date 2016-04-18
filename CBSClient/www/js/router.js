@@ -17,58 +17,31 @@ module.exports = ['$stateProvider', '$urlRouterProvider',
                 templateUrl: 'js/modules/login/login.html'
             })
 
-            .state('outside.nurse', {
-                url: '/nurse',
-                templateUrl: 'js/modules/nurse/nurse.html',
-                controller: "NurseController as nurseController"
-            })
-
-            .state('outside.help', {
-                url: '/help',
-                templateUrl: 'js/modules/help/help.html',
-                controller: "HelpController as helpController"
-            })
-
-            .state('outside.donations', {
-                url: '/help',
-                templateUrl: 'js/modules/donations/donations.html',
-                controller: "DonationsController as donationsController"
-            })
-
-            .state('outside.manage', {
-                url: '/help',
-                templateUrl: 'js/modules/manage/manage.html',
-                controller: "ManageController as manageController"
-            })
-
-            .state('outside.menu', {
-                url: '/menu',
-                templateUrl: 'js/modules/menu/menu.html',
-                controller: "MenuController as menuController"
+            .state('outside.index', {
+              url: '/index',
+              templateUrl: 'js/modules/index/index.html'
             })
 
             .state('outside.register', {
-                url: '/register',
-                templateUrl: 'js/modules/register/register.html',
-                controller: 'RegisterController as registerController'
+              url: '/register',
+              templateUrl: 'js/modules/register/register.html'
             })
 
-            .state('main', {
-              url: '/',
+            .state("cbs", {
+              url: '/cbs',
               abstract: true,
-              templateUrl: 'js/modules/home/home.html'
+              templateUrl: "js/modules/menu/menu.html"
             })
 
-            .state('main.dash', {
-              url: 'main/dash',
+            .state('cbs.home', {
+              url: "/home",
               views: {
-                'dash-tab': {
-                  templateUrl: 'js/modules/dashboard/dashboard.html',
-                  controller: 'DashBoardController as DashBoardController'
+                'menuContent': {
+                  templateUrl: "js/modules/home/home.html"
                 }
               }
             });
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/outside/login');
+        $urlRouterProvider.otherwise('/outside/index');
     }
 ];

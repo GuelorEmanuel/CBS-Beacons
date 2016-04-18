@@ -1,6 +1,7 @@
 'use strict';
 
-function LoginController($scope, $ionicModal, $timeout, $location) {
+function LoginController($scope, $ionicModal, $timeout, $location,
+                         $ionicLoading, $ionicPopup, $state, LoginService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -26,23 +27,46 @@ function LoginController($scope, $ionicModal, $timeout, $location) {
 
   // Open the login modal
   $scope.login = function() {
-
     $scope.modal.show();
   };
+
+  $scope.show = function() {
+    $ionicLoading.show({
+      template:'<p>Loading...</p><ion-spinner></ion-spinner>'
+    });
+  };
+ $scope.hide = function(){
+   $ionicLoading.hide();
+ };
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
 
-    $location.path('/outside/menu');
+    // Start showing the progress
+    $scope.show($ionicLoading);
 
-    console.log("console");
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
+    // Do the call to a service using $http or directly do the call here
+    LoginService.login($scope.loginData).then(function(data) {
+      // Do something on success for example if you are doing a login
+      console.log('Login successful', data);
+      $state.go('cbs.home', {}, {reload: true});
+    }).catch(function(data) {
+      // Do something on error
+      console.log('Login failed', data);
+
+      var alertPopup = $ionicPopup.show({
+        title: 'Login failed!',
+        template: 'Wrong username or password',
+        okText: 'enable'
+      });
+    }).finally(function($ionicLoading) {
+      // On both cases hide the loading
+      $scope.hide($ionicLoading);
+    });
   };
 }
 
-module.exports = ['$scope', '$ionicModal', '$timeout','$location', LoginController];
+module.exports = ['$scope', '$ionicModal', '$timeout','$location',
+                  '$ionicLoading','$ionicPopup', '$state', 'LoginService',
+                   LoginController];

@@ -6,7 +6,7 @@ function MenuController($scope, $state, $ionicModal, $timeout, $location) {
     // when they are recreated or on app start, instead of every page change.
     // To listen for when this page is active (for example, to refresh data),
 
-    $scope.bookAppt = function() {
+    /*$scope.bookAppt = function() {
         $state.go('outside.register');
     };
 
@@ -20,6 +20,6 @@ function MenuController($scope, $state, $ionicModal, $timeout, $location) {
 
     $scope.nurse = function() {
         $state.go('outside.nurse');
-    };
+    };*/
 }
 module.exports = ['$scope', '$state', '$ionicModal', '$timeout','$location', MenuController];

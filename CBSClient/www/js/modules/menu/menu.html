@@ -1,14 +1,27 @@
-<ion-view title="CBC myBlood - Main Menu">
-    <ion-content class="padding">
-        <div class="list">
-            <img src="BookAppointment.PNG" style="width:20%;height:20%;margin-left: 40%" ng-click="bookAppt()">
-            <button class="button button-full button-assertive" ng-click="bookAppt()">Book an appointment</button>
-            <img src="ManageAppointment.PNG" style="width:20%;height:20%;margin-left: 40%" ng-click="manage()">
-            <button class="button button-full button-assertive" ng-click="manage()">Manage my appointments</button>
-            <img src="MyDonations.PNG" style="width:20%;height:20%;margin-left: 40%" ng-click="donations()">
-            <button class="button button-full button-assertive" ng-click="donations()">My donations/social media</button>
-            <img src="TalkNurse.PNG" style="width:20%;height:20%;margin-left: 40%" ng-click="nurse()">
-            <button class="button button-full button-assertive" ng-click="nurse()">Talk to a nurse</button>
-        </div>
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-dark">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left" expose-aside-when="large">
+    <ion-header-bar class="bar-dark">
+      <h1 class="title">Menu</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        <ion-item menu-close href="#/cbs/home">
+          Home
+        </ion-item>
+      </ion-list>
     </ion-content>
-</ion-view>
+  </ion-side-menu>
+</ion-side-menus>

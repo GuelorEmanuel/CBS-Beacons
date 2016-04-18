@@ -1,0 +1,21 @@
+<ion-view>
+    <ion-content scroll="false">
+        <section class="login-container">
+            <div class = "col header text-center">
+               <img src="./img/logo/test2.png" class = "logo" />
+            </div>
+            <div class = "col button-row text-center">
+              <button class="button button-block icon-left ion-social-facebook facebook-blue"
+                      ng-click="doLogin()()">Facebook</button>
+            </div>
+            <div class = "col button-row text-center">
+              <button class="button button-block icon-left ion-email"
+                       ui-sref="outside.register">Sign up with email</button>
+
+            </div>
+            <div class = "col text-center">
+                Already have an account? <strong><a href = "#/outside/login">Sign in now!</a></strong>
+            </div>
+        </section>
+    </ion-content>
+</ion-view>

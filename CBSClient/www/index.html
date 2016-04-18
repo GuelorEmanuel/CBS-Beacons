@@ -18,18 +18,6 @@
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
-    <!-- your app's js -->
-      <script>
-            function apptConfirm()    {
-                var answer = confirm('Are you sure you want to book this appointment?');
-                if(answer)  {
-                    answer = confirm('Success! You have booked your appointment. You can complete the medical forms now or access them later through the Manage Appointment screen in the main menu. Press ok to complete forms now, and press cancel to do them later.');
-                    if(answer)  {
-                        // go to manage appointment screen
-                    }
-                }
-            }
-      </script>
   </head>
 
   <body ng-app="starter">
@@ -37,9 +25,12 @@
     <!--
      The nav bar that will be updated as we navigate between views.
    -->
-   <ion-nav-bar class="bar-balanced">
-   </ion-nav-bar>
-   
+   <ion-nav-bar align-title="center" class="bar-dark nav-title-slide-ios7">
+    <ion-nav-back-button class="button-clear">
+      <i class="ion-arrow-left-c"></i> Back
+    </ion-nav-back-button>
+  </ion-nav-bar>
+
     <ion-nav-view></ion-nav-view>
     <script src="dist/bundle.js"></script>
 
