@@ -15,6 +15,10 @@ var cors            = require('cors');
 
 var router = express.Router();  // let get an instance of the express Router
 var port = process.env.PORT || 3000; //set the port
+var server = app.listen(port);
+var io = require('socket.io').listen(server);
+var connections = [];
+
 mongoose.connect(config.database);
 app.set('superSecret', config.secret);
 
@@ -214,7 +218,36 @@ function getToken(headers) {
     return null;
   }
 };
+
+//Socket io stuff
+io.on('connection', function(socket) {
+
+  socket.once('disconnect', function() {
+    connections.splice(connections.indexOf(socket), 1);
+    socket.disconnect(); // for cases when the server hasn't fully disconnected the socket
+    console.log("Disconeted %s sockets remaining ", connections.length);
+
+  });
+
+  socket.on('join', function(payload){
+    var newMember = {
+      id: this.id,
+      name: payload.name
+    };
+    this.emit('joined', newMember);
+    console.log("Audience joined %s ", payload.name);
+    io.sockets.emit('audience', newMember);
+
+  });
+
+  socket.emit('welcome', {
+    title: title
+  });
+
+  connections.push(socket);
+  console.log("Connected: %s connected sockets", connections.length);
+
+});
 //all of our routes will be prefixed with /api
 app.use('/api', router);
-app.listen(port);
 console.log("listening on port " + port);
