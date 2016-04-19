@@ -39,20 +39,20 @@ function LoginController($scope, $ionicModal, $timeout, $location,
    $ionicLoading.hide();
  };
 
-  // Perform the login action when the user submits the login form
+  //@TODO Perform the login action when the user submits the login form
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
 
-    // Start showing the progress
+    //@TODO Start showing the progress
     $scope.show($ionicLoading);
 
-    // Do the call to a service using $http or directly do the call here
+    //@TODO Do the call to a service using $http or directly do the call here
     LoginService.login($scope.loginData).then(function(data) {
       // Do something on success for example if you are doing a login
       console.log('Login successful', data);
       $state.go('cbs.home', {}, {reload: true});
     }).catch(function(data) {
-      // Do something on error
+      //@TODO Do something on error
       console.log('Login failed', data);
 
       var alertPopup = $ionicPopup.show({
@@ -61,7 +61,7 @@ function LoginController($scope, $ionicModal, $timeout, $location,
         okText: 'enable'
       });
     }).finally(function($ionicLoading) {
-      // On both cases hide the loading
+      //@TODO On both cases hide the loading
       $scope.hide($ionicLoading);
     });
   };
