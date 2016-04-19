@@ -62,6 +62,12 @@ function AuthService($http, $q, API_ENDPOINT) {
     });
   };
 
+  //@TODO login with facebook implementation
+  var loginFacebook = function(user) {
+    //@TODO autheticate with facebook get token on client side
+    //@TODO send received token from fb, user name, email to our Server
+  };
+
   var logout = function() {
     destroyUserCredentials();
   };
