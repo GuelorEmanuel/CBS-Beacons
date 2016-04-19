@@ -39,21 +39,18 @@ function LoginController($scope, $ionicModal, $timeout, $location,
    $ionicLoading.hide();
  };
 
-  //@TODO Perform the login action when the user submits the login form
+  //Perform the login action when the user submits the login form
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
 
-    //@TODO Start showing the progress
+    //Start showing the progress
     $scope.show($ionicLoading);
 
-    //@TODO Do the call to a service using $http or directly do the call here
+    //Do the call to a service using $http or directly do the call here
     LoginService.login($scope.loginData).then(function(data) {
-      // Do something on success for example if you are doing a login
-      console.log('Login successful', data);
+      
       $state.go('cbs.home', {}, {reload: true});
     }).catch(function(data) {
-      //@TODO Do something on error
-      console.log('Login failed', data);
 
       var alertPopup = $ionicPopup.show({
         title: 'Login failed!',
@@ -61,9 +58,14 @@ function LoginController($scope, $ionicModal, $timeout, $location,
         okText: 'enable'
       });
     }).finally(function($ionicLoading) {
-      //@TODO On both cases hide the loading
+      //On both cases hide the loading
       $scope.hide($ionicLoading);
     });
+  };
+
+  //@TODO Perform the facebook login action
+  $scope.doFbLogin = function() {
+
   };
 }
 
