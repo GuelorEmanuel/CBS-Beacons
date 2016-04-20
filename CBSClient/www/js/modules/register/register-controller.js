@@ -17,41 +17,9 @@ function RegisterController($scope, $state, $ionicPopup) {
     password: ''
   };
 
-  console.log("in the controller");
-  $scope.signup = function() {
-
-    var alertPopup = $ionicPopup.show({
-      title: 'Confirmation!',
-      template: 'Are you sure you want to book this appointment?',
-      buttons: [
-        { text: "Yes",
-          onTap: function(e) {
-            $ionicPopup.show({
-              title: 'Success!',
-              template: 'Success! You have booked your appointment. You can complete the medical forms now or access them later through the Manage Appointment screen in the main menu.',
-              buttons: [
-                {
-                  text: "Complete forms",
-                  onTap: function(e) {
-                    $state.go('outside.manage');
-                  }
-                },
-                {
-                  text: 'Finish later',
-                  onTap: function(e) {
-                    $state.go('outside.menu');
-                  }
-                }
-              ]
-            });
-          }
-        },
-        { text: "No" }
-      ]
-    });
+  $scope.submit = function(username) {
+    console.log("usernme: ", username);
   };
-
-
-
+  
 }
 module.exports = ['$scope', '$state', '$ionicPopup', RegisterController];

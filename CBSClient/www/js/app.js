@@ -4,11 +4,13 @@ require('angular');
 require('ionic');
 
 require('./modules/login/login');
+require('./modules/register/register');
 
 
 module.exports = angular.module('starter', [
     'ionic',
-    'login'
+    'login',
+    'register'
   ])
 
   .constant('AUTH_EVENTS',{

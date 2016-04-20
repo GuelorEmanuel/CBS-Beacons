@@ -22,7 +22,7 @@ function LoginController($scope, $ionicModal, $timeout, $location,
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
-    $scope.modal.hide()
+    $scope.modal.hide();
     $state.go('outside.index', {"test": 123}, {reload: true });
   };
 

@@ -24,7 +24,8 @@ module.exports = ['$stateProvider', '$urlRouterProvider',
 
             .state('outside.register', {
               url: '/register',
-              templateUrl: 'js/modules/register/register.html'
+              templateUrl: 'js/modules/register/register.html',
+              controller: 'RegisterController as registerController'
             })
 
             .state("cbs", {
