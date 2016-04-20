@@ -12,14 +12,14 @@ module.exports = ['$stateProvider', '$urlRouterProvider',
                 controller: 'LoginController as loginController'
             })
 
-            .state('outside.login', {
-                url: '/login',
-                templateUrl: 'js/modules/login/login.html'
-            })
-
             .state('outside.index', {
               url: '/index',
               templateUrl: 'js/modules/index/index.html'
+            })
+
+            .state('outside.login', {
+                url: '/login',
+                templateUrl: 'js/modules/login/login.html'
             })
 
             .state('outside.register', {

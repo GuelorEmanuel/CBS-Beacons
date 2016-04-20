@@ -22,7 +22,8 @@ function LoginController($scope, $ionicModal, $timeout, $location,
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
-    $scope.modal.hide();
+    $scope.modal.hide()
+    $state.go('outside.index', {"test": 123}, {reload: true });
   };
 
   // Open the login modal
@@ -48,15 +49,17 @@ function LoginController($scope, $ionicModal, $timeout, $location,
 
     //Do the call to a service using $http or directly do the call here
     LoginService.login($scope.loginData).then(function(data) {
-      
+
       $state.go('cbs.home', {}, {reload: true});
     }).catch(function(data) {
 
-      var alertPopup = $ionicPopup.show({
+      var alertPopup = $ionicPopup.alert({
         title: 'Login failed!',
-        template: 'Wrong username or password',
-        okText: 'enable'
+        template: 'Wrong username or password'
       });
+
+
+
     }).finally(function($ionicLoading) {
       //On both cases hide the loading
       $scope.hide($ionicLoading);

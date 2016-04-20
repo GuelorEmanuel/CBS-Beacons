@@ -16,7 +16,7 @@ module.exports = angular.module('starter', [
   })
 
   .constant('API_ENDPOINT', {
-    url: 'http://159.203.18.207:3000/api'
+    url: 'http://172.17.123.206:3000/api'
   })
 
   .config(require('./router'))
