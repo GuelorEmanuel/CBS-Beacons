@@ -70,6 +70,12 @@ function LoginController($scope, $ionicModal, $timeout, $location,
   $scope.doFbLogin = function() {
 
   };
+
+  
+
+
+
+
 }
 
 module.exports = ['$scope', '$ionicModal', '$timeout','$location',

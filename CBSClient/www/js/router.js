@@ -38,7 +38,8 @@ module.exports = ['$stateProvider', '$urlRouterProvider',
               url: "/home",
               views: {
                 'menuContent': {
-                  templateUrl: "js/modules/home/home.html"
+                  templateUrl: "js/modules/home/home.html",
+                  controller: "HomeController as homeController"
                 }
               }
             });

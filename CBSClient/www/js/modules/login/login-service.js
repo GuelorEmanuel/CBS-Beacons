@@ -1,7 +1,8 @@
 'use strict';
 
-function LoginService($http, $q, API_ENDPOINT) {
+function LoginService($http, $q, $scope, API_ENDPOINT) {
+
 
 }
 
-module.exports = ['$http', '$q', 'API_ENDPOINT', LoginService];
+module.exports = ['$http', '$q', '$scope', 'API_ENDPOINT', LoginService];
