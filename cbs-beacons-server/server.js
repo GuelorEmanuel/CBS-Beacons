@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(morgan('dev'));// for logging requests to the console
-app.use(cors());
+//app.use(cors());
 
 
 //route to authenticate a user (POST http://localhost:3000/api/authenticate)
