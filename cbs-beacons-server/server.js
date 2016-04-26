@@ -18,6 +18,7 @@ var port = process.env.PORT || 3000; //set the port
 var server = app.listen(port);
 var io = require('socket.io').listen(server);
 var connections = [];
+var mapUsers = [];
 
 mongoose.connect(config.database);
 app.set('superSecret', config.secret);
@@ -219,35 +220,90 @@ function getToken(headers) {
   }
 };
 
-//Socket io stuff
+function doesUserExist(newUser) {
+  var isEqual = false;
+  for (var i = 0; i < mapUsers.length; i++) {
+    if (mapUsers[i] != null) {
+      if (mapUsers[i].major === newUser.major){
+        isEqual = true;
+        mapUsers[i] = newUser;
+        break;
+      }
+    }
+  }
+  if (!isEqual){
+    mapUsers.push(newUser);
+  }
+}
+
+function removeSocket(socket) {
+  for (var j = 0; j < mapUsers.length; j++) {
+    if ( mapUsers[j].id == socket) {
+      mapUsers.splice(j, 1);
+    }
+  }
+}
+
+/* socket.io for Rooms */
 io.on('connection', function(socket) {
 
   socket.once('disconnect', function() {
     connections.splice(connections.indexOf(socket), 1);
+    removeSocket(socket);
     socket.disconnect(); // for cases when the server hasn't fully disconnected the socket
     console.log("Disconeted %s sockets remaining ", connections.length);
 
   });
 
   socket.on('join', function(payload){
+    var currentDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
     var newMember = {
       id: this.id,
-      name: payload.name
+      firstname: payload.firstname,
+      lat: payload.lat,
+      long: payload.long,
+      roomName: payload.roomName,
+      timeStamp: currentDate,
+      major: payload.major
     };
-    this.emit('joined', newMember);
-    console.log("Audience joined %s ", payload.name);
-    io.sockets.emit('audience', newMember);
+    doesUserExist(newMember);
+    this.emit('joined', mapUsers);
+    console.log("Audience joined %s ", payload.firstname);
+    io.sockets.emit('audience', newMember.firstname);
 
   });
 
   socket.emit('welcome', {
-    title: title
+    title: 'title'
   });
+
+   /*chat*/
+  socket.on('join:room', function(payload){
+        var room_name = payload.room_name;
+        socket.join(room_name);
+        console.log("Audience joined Room%s ", room_name);
+    });
+
+
+    socket.on('leave:room', function(msg){
+        msg.text = msg.user + " has left the room";
+        socket.in(msg.room).emit('exit', msg);
+        socket.leave(msg.room);
+    });
+
+
+    socket.on('send:message', function(msg){
+        socket.in(msg.room).emit('message', msg);
+    });
+    /*chat*/
 
   connections.push(socket);
   console.log("Connected: %s connected sockets", connections.length);
 
 });
+/*-------*/
+
+
 //all of our routes will be prefixed with /api
 app.use('/api', router);
 console.log("listening on port " + port);
