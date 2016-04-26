@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; script-src &apos;self&apos; &apos;unsafe-inline&apos; &apos;unsafe-eval&apos; *; style-src  &apos;self&apos; &apos;unsafe-inline&apos; *">
     <title></title>
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
@@ -14,27 +15,37 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-
-
+<script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
+    <script src="lib/angular-local-storage/dist/angular-local-storage.min.js"></script>
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="lib/angular-google-maps/dist/angular-google-maps.min.js"></script>
+    <script src="lib/angular-simple-logger/dist/angular-simple-logger.min.js"></script>
+    <script src="lib/ngstorage/ngStorage.min.js"></script>
+
     <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+    <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
+<!-- <script src="cordova.js"></script> -->
+
+    <!-- your app's js -->
+    <script src="lib/moment/min/moment.min.js"></script>
+    <script src="lib/angular-moment/angular-moment.min.js"></script>
+    <script src="lib/sio-client/socket.io.js"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="lib/angular-socket-io/socket.js"></script>
 
   </head>
 
   <body ng-app="starter">
-
-    <!--
-     The nav bar that will be updated as we navigate between views.
-   -->
-   <ion-nav-bar align-title="center" class="bar-assertive nav-title-slide-ios7">
-    <ion-nav-back-button class="button-clear">
-      <i class="ion-arrow-left-c"></i> Back
-    </ion-nav-back-button>
-  </ion-nav-bar>
+    <!--The nav bar that will be updated as we navigate between views.-->
+    <ion-nav-bar align-title="center" class="bar-assertive nav-title-slide-ios7">
+      <ion-nav-back-button class="button-clear">
+        <i class="ion-arrow-left-c"></i> Back
+      </ion-nav-back-button>
+    </ion-nav-bar>
 
     <ion-nav-view></ion-nav-view>
     <script src="dist/bundle.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBCn8n-MFyn_dz63bV670FLdv6LZB6MFRc"></script>
 
   </body>
 </html>

@@ -18,8 +18,17 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close href="#/cbs/home">
+        <ion-item nav-clear menu-close href="#/cbs/home">
           Home
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/cbs/map">
+          Map
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/cbs/rooms">
+          Rooms
+        </ion-item>
+        <ion-item nav-clear menu-close ng-click="logout()">
+          Sign out
         </ion-item>
       </ion-list>
     </ion-content>

@@ -3,21 +3,33 @@
     <ion-content>
       <div class="list list-inset">
         <label class="item item-input">
-          <span class="input-label">Name</span>
-          <input type="text" name="firstName" ng-model="username" ng-minlength="2" required />
+          <span class="input-label">name</span>
+          <input type="text" name="username" ng-model="registerData.name" ng-minlength="2" required />
+        </label>
+        <label class="item item-input">
+          <span class="input-label">firstName</span>
+          <input type="text" name="firstName" ng-model="registerData.firstName" ng-minlength="2" required />
+        </label>
+        <label class="item item-input">
+          <span class="input-label">lastName</span>
+          <input type="text" name="lastName" ng-model="registerData.lastName" ng-minlength="2" required />
         </label>
         <label class="item item-input">
           <span class="input-label">Email</span>
-          <input type="email" name="email" ng-model="email" ng-minlength="5" required />
+          <input type="email" name="email" ng-model="registerData.email" ng-minlength="5" required />
         </label>
         <label class="item item-input">
           <span class="input-label">Password</span>
-          <input type="password" name="password" ng-model="password" ng-minlength="6" required />
+          <input type="password" name="password" ng-model="registerData.password" ng-minlength="6" required />
         </label>
       </div>
       <div class="padding">
-        <p ng-show="registerForm.firstName.$error.required">* Username is required</p>
-        <p ng-show="registerForm.firstName.$error.minlength">*The Username must be min length of 2 character </p>
+        <p ng-show="registerForm.username.$error.required">* username is required</p>
+        <p ng-show="registerForm.username.$error.minlength">*The username must be min length of 2 character </p>
+        <p ng-show="registerForm.lastName.$error.required">* lastName is required</p>
+        <p ng-show="registerForm.lastName.$error.minlength">*The lastName must be min length of 2 character </p>
+        <p ng-show="registerForm.firstName.$error.required">* firstName is required</p>
+        <p ng-show="registerForm.firstName.$error.minlength">*The Firstname must be min length of 2 character </p>
         <p ng-show="registerForm.email.$error.required">* Email is required</p>
         <p ng-show="registerForm.email.$invalid && !registerForm.email.$spristine">* Email must be a valid email</p>
         <p ng-show="registerForm.email.$error.minlength">*The email must be min length of 5 character </p>
@@ -25,7 +37,7 @@
         <p ng-show="registerForm.password.$error.minlength">*The password must be min length of 6 character </p>
       </div>
       <div class="padding">
-        <button type="submit" class="button button-block button-assertive" ng-disabled="registerForm.$invalid" ng-click="submit(username)">
+        <button type="submit" class="button button-block button-assertive" ng-disabled="registerForm.$invalid" ng-click="signup()">
           <span ng-show="!loading">Create Account</span>
           <i ng-show="loading" class="ion-loading-b"></i>
         </button>

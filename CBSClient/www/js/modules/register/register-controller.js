@@ -1,6 +1,6 @@
 'use strict';
 
-function RegisterController($scope, $state, $ionicPopup) {
+function RegisterController($scope, $state, $ionicPopup, LoginService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -9,17 +9,23 @@ function RegisterController($scope, $state, $ionicPopup) {
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  $scope.user = {
-    name: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: ''
+  $scope.registerData = {};
+
+  $scope.signup = function() {
+    LoginService.register($scope.registerData).then(function(msg) {
+
+      var alertPopup = $ionicPopup.alert({
+        title: 'Register success!',
+        template: msg
+      });
+      $state.go('outside.login');
+    }, function(errMsg) {
+      var alertPopup = $ionicPopup.alert({
+        title: 'Register failed!',
+        template: errMsg
+      });
+    });
   };
 
-  $scope.submit = function(username) {
-    console.log("usernme: ", username);
-  };
-  
 }
-module.exports = ['$scope', '$state', '$ionicPopup', RegisterController];
+module.exports = ['$scope', '$state', '$ionicPopup', 'LoginService', RegisterController];

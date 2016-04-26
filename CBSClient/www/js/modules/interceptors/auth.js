@@ -2,7 +2,7 @@
 
 /*jshint sub:true*/
 
-function AuthService($http, $q, API_ENDPOINT) {
+function AuthService($http, $q, API_ENDPOINT, localStorageService) {
   var BASE_URL = API_ENDPOINT.url;
   var LOCAL_TOKEN_KEY = 'yourTokenKey';
   var isAuthenticated = false;
@@ -49,11 +49,14 @@ function AuthService($http, $q, API_ENDPOINT) {
     });
   };
 
+
   var login = function(user) {
     return $q(function(resolve, reject) {
       $http.post(BASE_URL + '/authenticate', user).then(function(result){
         if (result.data.success) {
+          console.log("this is the data " +JSON.stringify(result.data));
           storeUserCredentials(result.data.token);
+          localStorageService.set(LOCAL_TOKEN_KEY, result.data);
           resolve(result.data.msg);
         }else{
           reject(result.data.msg);
@@ -61,6 +64,7 @@ function AuthService($http, $q, API_ENDPOINT) {
       });
     });
   };
+
 
   //@TODO login with facebook implementation
   var loginFacebook = function(user) {
@@ -82,10 +86,12 @@ function AuthService($http, $q, API_ENDPOINT) {
     login : login,
     register: register,
     logout: logout,
-    isAuthenticated: function() {return isAuthenticated;}
+    isAuthenticated: function() {return isAuthenticated;},
+    getKey: function() {return LOCAL_TOKEN_KEY;}
   };
 
 
 }
 
-module.exports = ['$http', '$q', 'API_ENDPOINT', AuthService];
+module.exports = ['$http', '$q', 'API_ENDPOINT', 'localStorageService',
+                  AuthService];

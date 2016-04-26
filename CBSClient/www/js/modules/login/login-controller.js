@@ -1,7 +1,8 @@
 'use strict';
 
 function LoginController($scope, $ionicModal, $timeout, $location,
-                         $ionicLoading, $ionicPopup, $state, LoginService) {
+                         $ionicLoading, $ionicPopup, $state, LoginService,
+                        localStorageService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -49,8 +50,7 @@ function LoginController($scope, $ionicModal, $timeout, $location,
 
     //Do the call to a service using $http or directly do the call here
     LoginService.login($scope.loginData).then(function(data) {
-
-      $state.go('cbs.home', {}, {reload: true});
+      $state.go('cbs.rooms');
     }).catch(function(data) {
 
       var alertPopup = $ionicPopup.alert({
@@ -71,7 +71,7 @@ function LoginController($scope, $ionicModal, $timeout, $location,
 
   };
 
-  
+
 
 
 
@@ -80,4 +80,4 @@ function LoginController($scope, $ionicModal, $timeout, $location,
 
 module.exports = ['$scope', '$ionicModal', '$timeout','$location',
                   '$ionicLoading','$ionicPopup', '$state', 'LoginService',
-                   LoginController];
+                   'localStorageService', LoginController];

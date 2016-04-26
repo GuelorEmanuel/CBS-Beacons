@@ -31,7 +31,8 @@ module.exports = ['$stateProvider', '$urlRouterProvider',
             .state("cbs", {
               url: '/cbs',
               abstract: true,
-              templateUrl: "js/modules/menu/menu.html"
+              templateUrl: "js/modules/menu/menu.html",
+              controller: "MenuController as menuController"
             })
 
             .state('cbs.home', {
@@ -40,6 +41,36 @@ module.exports = ['$stateProvider', '$urlRouterProvider',
                 'menuContent': {
                   templateUrl: "js/modules/home/home.html",
                   controller: "HomeController as homeController"
+                }
+              }
+            })
+
+            .state('cbs.map', {
+              url: "/map",
+              views: {
+                'menuContent': {
+                  templateUrl: "js/modules/map/map.html",
+                  controller: "MapController as mapController"
+                }
+              }
+            })
+
+            .state('cbs.rooms', {
+              url: "/rooms",
+              views: {
+                'menuContent': {
+                  templateUrl: "js/modules/room/rooms.html",
+                  controller: "HomeController as homeController"
+                }
+              }
+            })
+
+            .state('cbs.room', {
+              url: "/room",
+              views: {
+                'menuContent': {
+                  templateUrl: "js/modules/room/room.html",
+                  controller: "RoomController as roomController"
                 }
               }
             });

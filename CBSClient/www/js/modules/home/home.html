@@ -1,33 +1,18 @@
 <ion-view view-title="Home">
     <ion-content class="padding">
-  <div class="list">
-    <div class="item" ng-repeat="(key, value) in beacons">
-      <div class="row">
-        <div class="col truncate">
-          {{value.uuid}}
+
+      <div class="list card">
+        <div class="item item-avatar">
+          <img src="http://placehold.it/140x100">
+          <h2>{{userInfo.firstname}} {{userInfo.lastname}}</h2>
+          <p>{{mNearestRoom.id}}</p>
+          <p>mCurrentUserStamp.timeStamp</p>
+        </div>
+
+        <div class="item item-body">
+          <img class="full-image" src="http://placehold.it/350x150">
+          <p>{{mNearestRoom.info}}</p>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          major: {{value.major}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          {{value.proximity}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          {{value.accuracy}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          {{value.rssi}}
-        </div>
-      </div>
-    </div>
-  </div>
-  </ion-content>
-</ion-view>
+    </ion-content>
+  </ion-view>
