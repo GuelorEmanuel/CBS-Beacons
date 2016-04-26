@@ -84,6 +84,7 @@ function HomeController($scope, $ionicModal, $timeout, $location,
 
   me.rooms = noRoomFound;
   $scope.mNearestRoom = noRoomFound;
+  $scope.mCurrentUserStamp = noRoomFound;
 
   localStorageService.set('username', $scope.userInfo.firstname);
   console.log("name "+ $scope.userInfo.firstname);
@@ -297,8 +298,8 @@ function HomeController($scope, $ionicModal, $timeout, $location,
 
   function updateStamp(){
     $scope.$apply(function () {
-      for ( var k = 0; k < $scope.mNearestUsers .length; k++) {
-        if ($scope.mNearestUsers [k].firtname === $scope.userInfo.firtname) {
+      for ( var k = 0; k < $scope.mNearestUsers.length; k++) {
+        if ($scope.mNearestUsers[k].firtname === $scope.userInfo.firtname) {
           $scope.mCurrentUserStamp = $scope.mNearestUsers[k];
         }else {
           $scope.mCurrentUserStamp = noRoomFound;
