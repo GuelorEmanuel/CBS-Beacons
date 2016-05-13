@@ -12,7 +12,8 @@ require('./modules/room/room');
 require('./modules/menu/menu');
 
 module.exports = angular.module('starter', [
-    'ionic','ionic.service.core',
+    'ionic',
+    'ionic.service.core',
     'ngCordova',
     'uiGmapgoogle-maps',
     'home',
@@ -34,6 +35,7 @@ module.exports = angular.module('starter', [
 
   .constant('API_ENDPOINT', {
     url: 'http://159.203.18.207:3000/api'
+    //172.17.123.206
   })
 
   .config(function(uiGmapGoogleMapApiProvider) {
@@ -75,94 +77,5 @@ module.exports = angular.module('starter', [
         $state.go('outside.index');
       }
     }
-  });
-})
-
-.run(function($ionicPlatform, $ionicPopup){
-  document.addEventListener("resume", function(){
-    $ionicPlatform.ready(function(){
-      cordova.plugins.locationManager.isBluetoothEnabled()
-      .then(function(isEnabled){
-        console.log("isEnabled: " + isEnabled);
-        if (isEnabled){
-          //cordova.plugins.locationManager.disableBluetooth();
-        }else {
-          console.log("isDisabled");
-        }
-      })
-      .fail(console.error)
-      .done();
-
-    });
-
-  }, false);
-
-})
-
-.run(function($ionicPlatform, $ionicPopup){
-  $ionicPlatform.ready(function(){
-
-    document.addEventListener("offline", function(){
-      $ionicPopup.confirm({
-        title: "Internet Disconnected",
-        content: "The internet is disconnected on your device."
-      })
-      .then(function(result){
-        if(!result){
-          ionic.Platform.exitApp();
-        }
-      });
-
-    }, false);
-
-  });
-})
-
-.run(function($ionicPlatform, $ionicPopup){
-  $ionicPlatform.ready(function(){
-    cordova.plugins.BluetoothStatus.initPlugin();
-
-    window.addEventListener('BluetoothStatus.disabled', function(){
-      $ionicPopup.confirm({
-        title: "Bluetooth services Disabled",
-        content: "Please enable Bluetooth services",
-        cancelText: 'exit App',
-        okText: 'enable'
-      })
-      .then(function(result){
-        if(!result){
-          ionic.Platform.exitApp();
-        }else{
-          cordova.plugins.locationManager.enableBluetooth(); //android only
-
-        }
-      });
-    });
-
-    cordova.plugins.locationManager.isBluetoothEnabled()
-    .then(function(isEnabled){
-      if(isEnabled){
-
-      }else{
-        $ionicPopup.confirm({
-          title: "Bluetooth services Disabled",
-          content: "Please enable Bluetooth services",
-          cancelText: 'exit App',
-          okText: 'enable'
-        })
-        .then(function(result){
-          if(!result){
-            ionic.Platform.exitApp();
-          }else{
-            cordova.plugins.locationManager.enableBluetooth(); //android only
-
-          }
-        });
-
-      }
-    })
-    .fail(console.error)
-    .done();
-
   });
 });

@@ -50,7 +50,7 @@ function LoginController($scope, $ionicModal, $timeout, $location,
 
     //Do the call to a service using $http or directly do the call here
     LoginService.login($scope.loginData).then(function(data) {
-      $state.go('cbs.rooms');
+      $state.go('cbs.home');
     }).catch(function(data) {
 
       var alertPopup = $ionicPopup.alert({
@@ -68,6 +68,16 @@ function LoginController($scope, $ionicModal, $timeout, $location,
 
   //@TODO Perform the facebook login action
   $scope.doFbLogin = function() {
+
+
+
+    //Do the call to a service using $http or directly do the call here
+    LoginService.loginFacebook().then(function(data) {
+      $state.go('cbs.rooms');
+    }).catch(function(data) {
+
+
+    });
 
   };
 

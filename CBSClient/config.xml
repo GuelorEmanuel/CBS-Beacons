@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="me.cubeguelor.CBSBeacons" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>CBS Beacons</name>
+  <name>CBSBeacons</name>
   <description>
-        Canadian Blood Services Demo for beacons.
-    </description>
+    Canadian Blood Services Demo for beacons.
+  </description>
   <author email="ncstech07@gmail.com" href="http://cubeguelor.me">
       By Guelor Emanuel
-    </author>
+  </author>
   <content src="index.html"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>

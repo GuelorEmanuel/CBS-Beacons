@@ -2,7 +2,9 @@
 
 /*jshint sub:true*/
 
-function AuthService($http, $q, API_ENDPOINT, localStorageService) {
+function AuthService($http, $q, API_ENDPOINT, localStorageService,
+                     $cordovaFacebook) {
+
   var BASE_URL = API_ENDPOINT.url;
   var LOCAL_TOKEN_KEY = 'yourTokenKey';
   var isAuthenticated = false;
@@ -67,8 +69,24 @@ function AuthService($http, $q, API_ENDPOINT, localStorageService) {
 
 
   //@TODO login with facebook implementation
-  var loginFacebook = function(user) {
+  var loginFacebook = function() {
     //@TODO autheticate with facebook get token on client side
+    $cordovaFacebook.login(["public_profile", "email"]).then(function(success){
+      console.log(success);
+
+      //Need to convert expiresIn format from FB to date
+      var expiration_date = new Date();
+      expiration_date.setSeconds(expiration_date.getSeconds() + success.authResponse.expiresIn);
+      expiration_date = expiration_date.toISOString();
+
+      var facebookAuthData = {
+        "id": success.authResponse.userID,
+        "access_token": success.authResponse.accessToken,
+        "expiration_date": expiration_date
+      };
+    }, function(error){
+      console.log("User cancelled the Facebook login or did not fully authorize.");
+    });
     //@TODO send received token from fb, user name, email to our Server
   };
 
@@ -86,6 +104,7 @@ function AuthService($http, $q, API_ENDPOINT, localStorageService) {
     login : login,
     register: register,
     logout: logout,
+    loginFacebook: loginFacebook,
     isAuthenticated: function() {return isAuthenticated;},
     getKey: function() {return LOCAL_TOKEN_KEY;}
   };
@@ -94,4 +113,4 @@ function AuthService($http, $q, API_ENDPOINT, localStorageService) {
 }
 
 module.exports = ['$http', '$q', 'API_ENDPOINT', 'localStorageService',
-                  AuthService];
+                  '$cordovaFacebook', AuthService];

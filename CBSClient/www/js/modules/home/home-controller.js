@@ -19,7 +19,8 @@ function HomeController($scope, $ionicModal, $timeout, $location,
   var brMinor = null;
   var brNotifyEntryStateOnDisplay = true;
   $scope.beacons = {};
-
+  $scope.testUpdateRoom = 0;
+  $scope.testLocations = 0;
   //platForm(), version()
   var deviceInformation = ionic.Platform.isWebView();
   $scope.userInfo           = localStorageService.get(LoginService.getKey());
@@ -69,13 +70,13 @@ function HomeController($scope, $ionicModal, $timeout, $location,
 	];
 
   var noRoomFound = {
-                     id: 'No nearest beacon found in your Area',
+                     id: 'noRoomFound',
                      uuid: "0",
                      major: "0",
                      minor: "0",
                      pic: "registration.png",
                      info: "Opps, there is no beacons in your region",
-                     timeStamp: ""
+                     timeStamp: "0:00"
                     };
 
   var me = this;
@@ -88,6 +89,7 @@ function HomeController($scope, $ionicModal, $timeout, $location,
 
   localStorageService.set('username', $scope.userInfo.firstname);
   console.log("name "+ $scope.userInfo.firstname);
+
   $scope.enterRoom = function(room_name){
     me.current_room = room_name;
     localStorageService.set('room', room_name);
@@ -244,28 +246,29 @@ function HomeController($scope, $ionicModal, $timeout, $location,
 
     $scope.startRangingBeaconsInRegion();
 
-    /*$cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion("estimote","B9407F30-F5F8-466E-AFF9-25556B57FE6D", null, null,true ));*/
+    //$cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion("estimote","B9407F30-F5F8-466E-AFF9-25556B57FE6D", null, null,true ));
 
     // =========/ Events
 
   });
 
-  function updateRoom(){
-    $scope.$apply(function () {
-      for ( var j = 0; j < mRegions.length; j++) {
-        if (mRegions[j].major === $scope.mNearestBeacon.major) {
-          $scope.mNearestRoom = mRegions[j];
-          me.rooms = $scope.mNearestRoom;
-          break;
-        }else {
-          $scope.mNearestRoom = noRoomFound;
-          me.rooms = $scope.mNearestRoom;
-          console.log(noRoomFound);
-        }
+  function updateRoom() {
+    for ( var j = 0; j < mRegions.length; j++) {
+      if (mRegions[j].major === $scope.mNearestBeacon.major) {
+        $scope.mNearestRoom = mRegions[j];
+        me.rooms = $scope.mNearestRoom;
+        break;
+      }else {
+        $scope.mNearestRoom = noRoomFound;
+        me.rooms = $scope.mNearestRoom;
+        console.log(noRoomFound);
+        console.log(" I was called");
       }
-    });
+    }
+    $scope.$apply();
   }
-  setInterval(updateRoom,2000);
+  //Set time interval and keep excuting every 5 secs
+  setInterval(updateRoom, 5000);
 
   setInterval(function(){
     var posOptions = {timeout: 10000, enableHighAccuracy: false};
@@ -283,31 +286,37 @@ function HomeController($scope, $ionicModal, $timeout, $location,
     });
     var newMember = {
       firstname: $scope.userInfo.firstname,
+      email:  $scope.userInfo.email,
       lat: lat,
       long: long,
       roomName: $scope.mNearestRoom.id,
       major: $scope.mNearestRoom.major
     };
+
     SocketService.emit('join', newMember);
+    $scope.testLocations +=1;
+    console.log("coordinate was called");
+    $scope.$apply();
+  }, 5000); // Set time interval and keep excuting every 5 secs
 
-    SocketService.on('joined', function(users) {
-      $scope.mNearestUsers = users;
-    });
+  SocketService.on('joined', function(users) {
+    $scope.mNearestUsers = users;
+    $scope.testUpdateRoom +=1;
 
-  }, 2000);
+    $scope.$apply();
+    updateStamp();
+  });
 
   function updateStamp(){
-    $scope.$apply(function () {
       for ( var k = 0; k < $scope.mNearestUsers.length; k++) {
-        if ($scope.mNearestUsers[k].firtname === $scope.userInfo.firtname) {
+        if ($scope.mNearestUsers[k].firstname === $scope.userInfo.firstname) {
           $scope.mCurrentUserStamp = $scope.mNearestUsers[k];
         }else {
           $scope.mCurrentUserStamp = noRoomFound;
         }
       }
-    });
+      $scope.$apply();
   }
-  setInterval(updateRoom,2000);
 
 }
 
