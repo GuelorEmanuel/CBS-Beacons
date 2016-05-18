@@ -1,3 +1,8 @@
+/*
+ * User Schema
+ * by: Guelor Emanuel
+ */
+
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 var bcrypt   = require('bcrypt');
@@ -25,8 +30,8 @@ var UserSchema = new Schema({
     type: String,
     required: true
   }, // password should be hashed before saving
-  timeStamp: [{beacon:String, date:Date }],
-  date: {type:Date, default:Date.now}
+
+  timeStamp: [{beacon: String, date: String }]
 });
 
 UserSchema.pre('save', function(next) {

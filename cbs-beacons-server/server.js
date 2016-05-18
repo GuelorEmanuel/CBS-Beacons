@@ -1,3 +1,8 @@
+/*
+ * A very Simple Restful API using Express and MongoDb
+ * by: Guelor Emanuel
+ */
+
 //call the packages we need
 var express         = require("express");
 var bodyParser      = require("body-parser");
@@ -17,8 +22,9 @@ var router = express.Router();  // let get an instance of the express Router
 var port = process.env.PORT || 3000; //set the port
 var server = app.listen(port);
 var io = require('socket.io').listen(server);
-var connections = [];
-var mapUsers = [];
+
+var connections = [];  //contains list of connected socket, Indetify each connected users
+var mapUsers = [];     // contains connected user object: used for synchronizing users when beacon state changes
 
 mongoose.connect(config.database);
 app.set('superSecret', config.secret);
@@ -30,7 +36,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(morgan('dev'));// for logging requests to the console
-//app.use(cors());
+app.use(cors());
 
 
 //route to authenticate a user (POST http://localhost:3000/api/authenticate)
@@ -50,6 +56,7 @@ router.post('/authenticate',function(req, res){
           var token = jwt.sign(user, app.get('superSecret'),{
             expiresInMinutes: 1440 //expires in 24 hours
           });
+          var currentDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
 
           //return the information including tokesn as JSON
           res.json({
@@ -57,7 +64,9 @@ router.post('/authenticate',function(req, res){
             msg: 'Enjoy your token',
             token: token,
             firstname: user.firstName,
-            lastname: user.lastName
+            lastname: user.lastName,
+            email:    user.email,
+            currentDate: currentDate
           });
         } else{
           res.json({success: false, msg: 'Authentication failed. Wrong password.'});
@@ -65,6 +74,7 @@ router.post('/authenticate',function(req, res){
       });
     }
   });
+
 });
 
 router.get('/setup', function(req, res){
@@ -207,6 +217,10 @@ router.route('/users/:user_id').get(function(req, res){
   });
 });
 
+/*
+ * Method for getting the token from the request header: used for validation
+ * @return a token if exist, else return null
+ */
 function getToken(headers) {
   if (headers && headers.authorization) {
     var parted = headers.authorization.split(' ');
@@ -220,20 +234,48 @@ function getToken(headers) {
   }
 };
 
-function doesUserExist(newUser) {
-  var isEqual = false;
-  for (var i = 0; i < mapUsers.length; i++) {
-    if (mapUsers[i] != null) {
-      if (mapUsers[i].major === newUser.major){
-        isEqual = true;
+/*
+ * Method for getting the token from the request header: used for validation
+ * @param: newUser: object
+ * @return: boolean
+ */
+function userExist(newUser) {
+  if (typeof mapUsers !== 'undefined' && mapUsers.length > 0) {
+    for (var i = 0; i < mapUsers.length; i++) {
+      if (mapUsers[i].email === newUser.email){
+        return true;
+      }
+    }
+    return false;
+  }
+
+}
+
+/*
+ * Method for synchronizing users when beacons location has
+ * changed on the client side.
+ * @param: newUser: object
+ * @return: bool
+ */
+function updateMapUsers(newUser) {
+  var doesUserExist = userExist(newUser);
+  var userUpdated   = false;
+  if (typeof mapUsers !== 'undefined' && mapUsers.length > 0) {
+    for (var i = 0; i < mapUsers.length; i++) {
+      if (mapUsers[i].major != newUser.major && doesUserExist){
         mapUsers[i] = newUser;
+        userUpdated = true;
         break;
       }
     }
   }
-  if (!isEqual){
+  console.log("size: "+ mapUsers.length);
+  if (!doesUserExist){
     mapUsers.push(newUser);
+    userUpdated = true;
+    return userUpdated;
   }
+  return userUpdated;
 }
 
 function removeSocket(socket) {
@@ -244,8 +286,9 @@ function removeSocket(socket) {
   }
 }
 
-/* socket.io for Rooms */
-io.on('connection', function(socket) {
+
+/* socket.io implementation   */
+io.sockets.on('connection', function(socket) {
 
   socket.once('disconnect', function() {
     connections.splice(connections.indexOf(socket), 1);
@@ -257,51 +300,79 @@ io.on('connection', function(socket) {
 
   socket.on('join', function(payload){
     var currentDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+    console.log(currentDate);
     var newMember = {
       id: this.id,
       firstname: payload.firstname,
+      email: payload.email,
       lat: payload.lat,
       long: payload.long,
       roomName: payload.roomName,
       timeStamp: currentDate,
       major: payload.major
     };
-    doesUserExist(newMember);
-    this.emit('joined', mapUsers);
+
+    if (updateMapUsers(newMember)) {
+      console.log("save Is called");
+      User.findOne({ email: newMember.email }, function(error, user){
+        if(error){
+          console.log(error);
+        }
+        else if(user == null){
+          console.logo('no such user!')
+        }
+        else{
+          user.timeStamp.push({ beacon: newMember.id, date: currentDate });
+          user.save( function(error){
+            if(error){
+              console.log(error);
+            }else {
+              console.log("User was saved! :)")
+            }
+          });
+        }
+      });
+    }
+
+    socket.emit('joined', mapUsers);
     console.log("Audience joined %s ", payload.firstname);
-    io.sockets.emit('audience', newMember.firstname);
+    //console.log("Pyaload: "+ JSON.stringify(payload));
+    //io.sockets.emit('audience', newMember.firstname);
 
   });
 
-  socket.emit('welcome', {
-    title: 'title'
+  socket.on('welcome', function(payload) {
+    console.log("welcome:" + JSON.stringify(payload));
   });
 
    /*chat*/
   socket.on('join:room', function(payload){
-        var room_name = payload.room_name;
-        socket.join(room_name);
-        console.log("Audience joined Room%s ", room_name);
-    });
+    var room_name = payload.room_name;
+    socket.join(room_name);
+    console.log("Audience joined Room %s ", room_name);
+  });
 
+  socket.on('leave:room', function(msg){
+    msg.text = msg.user + " has left the room";
+    socket.in(msg.room).emit('exit', msg);
+    socket.leave(msg.room);
+  });
 
-    socket.on('leave:room', function(msg){
-        msg.text = msg.user + " has left the room";
-        socket.in(msg.room).emit('exit', msg);
-        socket.leave(msg.room);
-    });
-
-
-    socket.on('send:message', function(msg){
-        socket.in(msg.room).emit('message', msg);
-    });
+  socket.on('send:message', function(msg){
+    socket.in(msg.room).emit('message', msg);
+    console.log(msg);
+  });
     /*chat*/
 
   connections.push(socket);
   console.log("Connected: %s connected sockets", connections.length);
 
 });
+
+
+
 /*-------*/
+
 
 
 //all of our routes will be prefixed with /api

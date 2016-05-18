@@ -1,3 +1,9 @@
+/*
+ *  Library for streamlining application deployment
+ *   ( used for deployment to digital ocean) or
+ *   systems administration tasks
+ *   by: Guelor Emanuel
+ */
 var plan = require('flightplan');
 
 var appName = 'CBS-app';
