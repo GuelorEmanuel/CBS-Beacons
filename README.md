@@ -1,5 +1,5 @@
 # Canadian Blood Services proof of concept using Estimote beacons
-
+by: Guelor Emanuel
 getting started: client Side
 --------------------
 - setting up client environment
