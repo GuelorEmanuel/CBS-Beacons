@@ -28,6 +28,7 @@ getting started: client Side
   ```sh
   ping 159.203.18.207
 ```
+
 Server Side
 --------------------
 - The node server is hosted on Digital ocean: the app connects to it by default.
