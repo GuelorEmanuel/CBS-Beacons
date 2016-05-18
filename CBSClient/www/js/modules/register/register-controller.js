@@ -18,7 +18,6 @@ function RegisterController($scope, $state, $ionicPopup, LoginService) {
 
   $scope.signup = function() {
     LoginService.register($scope.registerData).then(function(msg) {
-
       var alertPopup = $ionicPopup.alert({
         title: 'Register success!',
         template: msg
@@ -31,6 +30,5 @@ function RegisterController($scope, $state, $ionicPopup, LoginService) {
       });
     });
   };
-
 }
 module.exports = ['$scope', '$state', '$ionicPopup', 'LoginService', RegisterController];

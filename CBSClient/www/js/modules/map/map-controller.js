@@ -19,9 +19,9 @@ function MapController($scope, $state, $cordovaGeolocation, $ionicPopup,
 
 
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
-/* jshint ignore:start */
-    var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
+    /* jshint ignore:start */
+    var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     var mapOptions = {
       center: latLng,
       zoom: 15,
@@ -47,18 +47,14 @@ function MapController($scope, $state, $cordovaGeolocation, $ionicPopup,
       });
     });
 
-/* jshint ignore:end */
+    /* jshint ignore:end */
   }, function(error){
     console.log("Could not get location");
-
     var alertPopup = $ionicPopup.alert({
       title: 'Could not get location!',
       template: 'Could not get the current position. Either GPS signals are weak or GPS has been switched off'
     });
-
   });
-
-
 
 
 }

@@ -11,7 +11,7 @@
 	      // org.apache.cordova.statusbar required
 	      //StatusBar.styleLightContent();
 	    }
-  	  });
-  	}
+		});
+	}
 
   	module.exports = ['$ionicPlatform', AppMain];

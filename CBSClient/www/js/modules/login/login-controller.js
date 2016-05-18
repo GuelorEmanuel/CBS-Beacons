@@ -41,6 +41,7 @@ function LoginController($scope, $ionicModal, $timeout, $location,
       template:'<p>Loading...</p><ion-spinner></ion-spinner>'
     });
   };
+
  $scope.hide = function(){
    $ionicLoading.hide();
  };
@@ -62,8 +63,6 @@ function LoginController($scope, $ionicModal, $timeout, $location,
         template: 'Wrong username or password'
       });
 
-
-
     }).finally(function($ionicLoading) {
       //On both cases hide the loading
       $scope.hide($ionicLoading);
@@ -72,17 +71,12 @@ function LoginController($scope, $ionicModal, $timeout, $location,
 
   //@TODO Perform the facebook login action
   $scope.doFbLogin = function() {
-
-
-
     //Do the call to a service using $http or directly do the call here
     LoginService.loginFacebook().then(function(data) {
       $state.go('cbs.rooms');
     }).catch(function(data) {
 
-
     });
-
   };
 
 

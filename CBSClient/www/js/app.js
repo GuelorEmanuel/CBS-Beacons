@@ -75,9 +75,8 @@ module.exports = angular.module('starter', [
     if (!LoginService.isAuthenticated()) {
       if (next.name !== 'outside.login' && next.name !== 'outside.register' &&
           next.name !== 'outside.index' ) {
-
-        event.preventDefault();
-        $state.go('outside.index');
+            event.preventDefault();
+            $state.go('outside.index');
       }
     }
   });

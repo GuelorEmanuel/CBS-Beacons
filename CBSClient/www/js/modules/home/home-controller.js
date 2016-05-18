@@ -75,14 +75,14 @@ function HomeController($scope, $ionicModal, $timeout, $location,
 
   // default value when there is no beacon in the area
   var noRoomFound = {
-                     id: 'noRoomFound',
-                     uuid: "0",
-                     major: "0",
-                     minor: "0",
-                     pic: "404.png",
-                     info: "Opps, there is no beacons in your region",
-                     timeStamp: "0:00"
-                    };
+    id: 'noRoomFound',
+    uuid: "0",
+    major: "0",
+    minor: "0",
+    pic: "404.png",
+    info: "Opps, there is no beacons in your region",
+    timeStamp: "0:00"
+  };
 
   var me = this;
   me.current_room = localStorageService.get('room');
