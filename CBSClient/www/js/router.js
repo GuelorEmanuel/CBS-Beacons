@@ -1,3 +1,7 @@
+/*
+ * router: handles the different state of the application
+ * by: Guelor Emanuel
+ */
 'use strict';
 
 

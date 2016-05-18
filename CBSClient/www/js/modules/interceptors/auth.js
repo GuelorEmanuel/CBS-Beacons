@@ -1,3 +1,7 @@
+/*
+ * AuthService Controller handle authorization methods
+ * by: Guelor Emanuel
+ */
 'use strict';
 
 /*jshint sub:true*/
@@ -68,7 +72,7 @@ function AuthService($http, $q, API_ENDPOINT, localStorageService,
   };
 
 
-  //@TODO login with facebook implementation
+  //@TODO login with facebook: Need to change the login strategy on the server to incorporate facebook access
   var loginFacebook = function() {
     //@TODO autheticate with facebook get token on client side
     $cordovaFacebook.login(["public_profile", "email"]).then(function(success){

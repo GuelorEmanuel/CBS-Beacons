@@ -1,6 +1,10 @@
+/*
+ * RoomController: contains socket listen methods and emit methos for chat room
+ * by: Guelor Emanuel
+ */
 'use strict';
 
-function RoomController($scope, $state, localStorageService, SocketService,
+function RoomController($scope, $state, localStorageService, SocketFactory,
                         moment, $ionicScrollDelegate) {
 
   // With the new view caching in Ionic, Controllers are only called
@@ -44,7 +48,7 @@ function RoomController($scope, $state, localStorageService, SocketService,
     $ionicScrollDelegate.scrollBottom();
     me.message = '';
 
-    SocketService.emit('send:message', msg);
+    SocketFactory.emit('send:message', msg);
   };
 
   $scope.leaveRoom = function(){
@@ -54,21 +58,21 @@ function RoomController($scope, $state, localStorageService, SocketService,
       'time': moment()
     };
 
-    SocketService.emit('leave:room', msg);
+    SocketFactory.emit('leave:room', msg);
     $state.go('rooms');
   };
 
-  SocketService.on('message', function(msg){
+  SocketFactory.on('message', function(msg){
     me.messages.push(msg);
     $ionicScrollDelegate.scrollBottom();
   });
 
-  SocketService.on('updateUsers', function(data){
+  SocketFactory.on('updateUsers', function(data){
     alert(data);
   });
 
 
 }
 
-module.exports = ['$scope', '$state', 'localStorageService', 'SocketService',
+module.exports = ['$scope', '$state', 'localStorageService', 'SocketFactory',
                   'moment', '$ionicScrollDelegate', RoomController];

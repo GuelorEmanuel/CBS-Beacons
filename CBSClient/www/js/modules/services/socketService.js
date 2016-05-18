@@ -1,16 +1,19 @@
+/*
+ * SocketFactory: similar to a  singleton pattern: return the connected state.
+ * by: Guelor Emanuel
+ */
 'use strict';
 
 /*jshint sub:true*/
 
-function SocketService(socketFactory) {
+function SocketFactory(socketFactory) {
 
   return socketFactory({
-    /* jshint ignore:start */
-    ioSocket: io.connect('http://159.203.18.207:3000/api')
+    /* global io: true */
+    ioSocket: io.connect('http://159.203.18.207:3000')
     //172.17.123.206
-    /* jshint ignore:end */
   });
 
 }
 
-module.exports = ['socketFactory', SocketService];
+module.exports = ['socketFactory', SocketFactory];

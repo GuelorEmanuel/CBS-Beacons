@@ -1,3 +1,8 @@
+/*
+ * Login Map Controller: contains method for map page
+ * by: Guelor Emanuel
+ */
+
 'use strict';
 
 function MapController($scope, $state, $cordovaGeolocation, $ionicPopup,

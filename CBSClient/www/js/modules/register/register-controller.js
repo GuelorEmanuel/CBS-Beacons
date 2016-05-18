@@ -1,3 +1,8 @@
+/*
+ * RegisterController: contains method for the Registration page
+ * by: Guelor Emanuel
+ */
+
 'use strict';
 
 function RegisterController($scope, $state, $ionicPopup, LoginService) {

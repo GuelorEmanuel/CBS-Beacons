@@ -2,5 +2,5 @@
 
 module.exports = angular.module('room', [])
 	.controller('RoomController', require('./room-controller'))
-	.service('SocketService', require('../services/SocketService'))
+	.service('SocketFactory', require('../services/socketService'))
 	.controller('HomeController', require('../home/home-controller'));

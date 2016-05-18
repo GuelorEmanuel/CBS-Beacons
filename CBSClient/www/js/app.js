@@ -1,3 +1,7 @@
+/*
+ * Entry point of the application: The angular module 'starter' is defined here
+ * by: Guelor Emanuel
+ */
 'use strict';
 
 require('angular');
@@ -35,7 +39,6 @@ module.exports = angular.module('starter', [
 
   .constant('API_ENDPOINT', {
     url: 'http://159.203.18.207:3000/api'
-    //172.17.123.206
   })
 
   .config(function(uiGmapGoogleMapApiProvider) {

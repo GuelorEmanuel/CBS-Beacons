@@ -1,9 +1,13 @@
+/*
+ * Home page Controller
+ * by: Guelor Emanuel
+ */
 'use strict';
 
 function HomeController($scope, $ionicModal, $timeout, $location,
                          $stateParams, $rootScope, $ionicPopup, $ionicPlatform,
                          $cordovaBeacon, LoginService, $state,
-                         localStorageService, SocketService, $cordovaGeolocation,
+                         localStorageService, SocketFactory, $cordovaGeolocation,
                          AUTH_EVENTS) {
 
   // With the new view caching in Ionic, Controllers are only called
@@ -11,31 +15,31 @@ function HomeController($scope, $ionicModal, $timeout, $location,
   // To listen for when this page is active (for example, to refresh data),
   // listen for the $ionicView.enter event:
   //$scope.$on('$ionicView.enter', function(e) {
-  //});$ionicPlatform, $cordovaBeacon $state, localStorageService, SocketService
+  //});
 
-  var brIdentifier = 'estimote';
+  var brIdentifier = 'estimote';  // beacons Unique identifier name. Parameter is mandatory.
+  //Unique proximity ID of the beacon being targeted.
+  //This value must not be blank nor invalid as a UUID. Parameter is mandatory.
   var brUuid = '6557b1a8-c7ef-0fdf-c5c2-90ec325161d2';
-  var brMajor = null;
-  var brMinor = null;
+  var brMajor = null; //The major value that you use to identify one or more beacons. Parameter is optional.
+  var brMinor = null; // The minor value that you use to identify a specific beacon. Parameter is optional.
+  //A Boolean indicating whether beacon notifications are sent when the device’s display is on. Parameter is optional.
   var brNotifyEntryStateOnDisplay = true;
-  $scope.beacons = {};
-  $scope.testUpdateRoom = 0;
-  $scope.testLocations = 0;
-  //platForm(), version()
-  var deviceInformation = ionic.Platform.isWebView();
+
+  $scope.beacons = {};  // hold a dictionary of beacons found in the area
+  var deviceInformation = ionic.Platform.isWebView(); // used for geting the device info of the user
   $scope.userInfo           = localStorageService.get(LoginService.getKey());
-  $scope.deviceInfo      = deviceInformation;
-  console.log("Info: ", $scope.deviceInfo);
-  //ionic.Platform.exitApp();
+  $scope.deviceInfo      = deviceInformation; //@TODO can send this info to the server to be saved to db
 
 
-	// Nearest ranged beacon.
+	// Used for finding the  Nearest ranged beacon, room, users.
 	$scope.mNearestBeacon = null;
   $scope.mNearestRoom = null;
   $scope.mNearestUsers = null;
-  $scope.mCurrentUserStamp = null;
 
-  // Here monitored regions are defined.
+  $scope.mCurrentUserStamp = null; // used for user time stamp
+
+  // Here where the monitored regions are defined.
 	// You can add as many beacons as you want to use.
 	var mRegions =
 	[
@@ -69,6 +73,7 @@ function HomeController($scope, $ionicModal, $timeout, $location,
 		}
 	];
 
+  // default value when there is no beacon in the area
   var noRoomFound = {
                      id: 'noRoomFound',
                      uuid: "0",
@@ -90,6 +95,10 @@ function HomeController($scope, $ionicModal, $timeout, $location,
   localStorageService.set('username', $scope.userInfo.firstname);
   console.log("name "+ $scope.userInfo.firstname);
 
+  /*
+   * Mehod for transitioning to the current beacons area for chatRoom
+   * @param: room_name: String
+   */
   $scope.enterRoom = function(room_name){
     me.current_room = room_name;
     localStorageService.set('room', room_name);
@@ -97,10 +106,13 @@ function HomeController($scope, $ionicModal, $timeout, $location,
       'room_name': room_name
     };
 
-    SocketService.emit('join:room', room);
+    SocketFactory.emit('join:room', room);
     $state.go('cbs.room');
   };
 
+  /*
+   * Mehod for checking if user is still Authenticated(check if token is still valid)
+   */
   $scope.$on(AUTH_EVENTS.notAuthenticated, function(event) {
     LoginService.logout();
     $state.go('outside.login');
@@ -110,21 +122,39 @@ function HomeController($scope, $ionicModal, $timeout, $location,
     });
   });
 
+  /*
+   * Method for getting beacon uuid, major, and beacon minor
+   * @param: beacon: Object
+   * @return: String
+   */
   function getBeaconId(beacon) {
 		return beacon.uuid + ':' + beacon.major + ':' + beacon.minor;
 	}
 
+  /*
+   * Method for checking if two beacons are the same
+   * @param: beacon1: Object, beacon2:Object
+   * @return: boolean
+   */
   function isSameBeacon(beacon1, beacon2) {
 		return getBeaconId(beacon1) == getBeaconId(beacon2);
 	}
 
-
+  /*
+   * Method for checking the closest beacons
+   * @param: beacon1: Object, beacon2:Object
+   * @return: beacon: Object
+   */
   function isNearerThan(beacon1, beacon2) {
 		return beacon1.accuracy > 0 &&
            beacon2.accuracy > 0 &&
            beacon1.accuracy < beacon2.accuracy;
 	}
 
+  /*
+   * Method for getting the closet beacon to the user
+   * @param: beacons: Dictionary
+   */
   function updateNearestBeacon(beacons) {
 		for (var i = 0; i < beacons.length; ++i) {
 			var beacon = beacons[i];
@@ -143,7 +173,11 @@ function HomeController($scope, $ionicModal, $timeout, $location,
 		}
 	}
 
-
+  /*
+   * Method for formatingDistance for accuracy
+   * @param: meters: Any
+   * @return: String
+   */
   $scope.formatDistance = function(meters) {
 
     if (!meters) { return 'Unknown'; }
@@ -156,7 +190,8 @@ function HomeController($scope, $ionicModal, $timeout, $location,
     }
 	};
 
-
+  // Method execute when device is ready, or immediately if the device is already ready.
+  // Can look up the documentation for $cordovaBeacon at http://ngcordova.com/docs/plugins/beacon/
   $ionicPlatform.ready(function () {
     $scope.didStartMonitoringForRegionLog = '';
     $scope.didDetermineStateForRegionLog = '';
@@ -194,7 +229,6 @@ function HomeController($scope, $ionicModal, $timeout, $location,
       $scope.didRangeBeaconsInRegionLog = '';
     };
 
-    // ========== Events
     $scope.requestAlwaysAuthorization();
 
     $rootScope.$on("$cordovaBeacon:didStartMonitoringForRegion", function (event, pluginResult) {
@@ -207,7 +241,6 @@ function HomeController($scope, $ionicModal, $timeout, $location,
         uniqueBeaconKey = getBeaconId(pluginResult.beacons[i]);
 
         $scope.beacons[uniqueBeaconKey] = pluginResult.beacons[i];
-        //$scope.beacons[uniqueBeaconKey].proximity = $scope.formatProximity($scope.beacons[uniqueBeaconKey].proximity);
       }
       $scope.$apply();
 
@@ -231,7 +264,6 @@ function HomeController($scope, $ionicModal, $timeout, $location,
 
           $scope.beacons[uniqueBeaconKey] = pluginResult.beacons[i];
           updateNearestBeacon(pluginResult.beacons);
-          //$scope.beacons[uniqueBeaconKey].proximity = $scope.formatProximity($scope.beacons[uniqueBeaconKey].proximity);
         }
         $scope.$apply();
     });
@@ -246,12 +278,11 @@ function HomeController($scope, $ionicModal, $timeout, $location,
 
     $scope.startRangingBeaconsInRegion();
 
-    //$cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion("estimote","B9407F30-F5F8-466E-AFF9-25556B57FE6D", null, null,true ));
-
-    // =========/ Events
-
   });
 
+  /*
+   * Method for updating the nearest room gets called every 5 seconds
+   */
   function updateRoom() {
     for ( var j = 0; j < mRegions.length; j++) {
       if (mRegions[j].major === $scope.mNearestBeacon.major) {
@@ -267,9 +298,11 @@ function HomeController($scope, $ionicModal, $timeout, $location,
     }
     $scope.$apply();
   }
-  //Set time interval and keep excuting every 5 secs
-  setInterval(updateRoom, 5000);
+  setInterval(updateRoom, 5000);// Set time interval and keep excuting every 5 secs
 
+  /*
+   * Method for updating user current location, get called every 5 secs
+   */
   setInterval(function(){
     var posOptions = {timeout: 10000, enableHighAccuracy: false};
     var lat;
@@ -293,20 +326,19 @@ function HomeController($scope, $ionicModal, $timeout, $location,
       major: $scope.mNearestRoom.major
     };
 
-    SocketService.emit('join', newMember);
-    $scope.testLocations +=1;
-    console.log("coordinate was called");
+    SocketFactory.emit('join', newMember);
     $scope.$apply();
   }, 5000); // Set time interval and keep excuting every 5 secs
 
-  SocketService.on('joined', function(users) {
+  // Method for listening for joined event emitted from the server, get the list
+  // of user connected in the same area as the user
+  SocketFactory.on('joined', function(users) {
     $scope.mNearestUsers = users;
-    $scope.testUpdateRoom +=1;
-
     $scope.$apply();
     updateStamp();
   });
 
+  // Method for updating user time stamp when login and when beacon location changes
   function updateStamp(){
       for ( var k = 0; k < $scope.mNearestUsers.length; k++) {
         if ($scope.mNearestUsers[k].firstname === $scope.userInfo.firstname) {
@@ -324,4 +356,4 @@ function HomeController($scope, $ionicModal, $timeout, $location,
 module.exports = ['$scope', '$ionicModal', '$timeout','$location',
                   '$stateParams', '$rootScope', '$ionicPopup', '$ionicPlatform',
                   '$cordovaBeacon', 'LoginService', '$state', 'localStorageService',
-                  'SocketService','$cordovaGeolocation', 'AUTH_EVENTS', HomeController];
+                  'SocketFactory','$cordovaGeolocation', 'AUTH_EVENTS', HomeController];

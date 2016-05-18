@@ -1,3 +1,7 @@
+/*
+ * StorageService: Hanlde saving data to device
+ * by: Guelor Emanuel
+ */
 'use strict';
 
 /*jshint sub:true*/

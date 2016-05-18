@@ -1,3 +1,7 @@
+/*
+ * Login Page Controller: contains method for login page
+ * by: Guelor Emanuel
+ */
 'use strict';
 
 function LoginController($scope, $ionicModal, $timeout, $location,
