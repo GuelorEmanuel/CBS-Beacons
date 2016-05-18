@@ -48,7 +48,7 @@ function HomeController($scope, $ionicModal, $timeout, $location,
 			uuid: "6557b1a8-c7ef-0fdf-c5c2-90ec325161d2",
 			major: "53270",
 			minor: "32099",
-      pic: "registration.png",
+      pic: "RegistrationRoom.png",
       info: "Please make yourself comfortable, we will notify you when when it's your turn.",
       timeStamp: ""
 
@@ -79,7 +79,7 @@ function HomeController($scope, $ionicModal, $timeout, $location,
                      uuid: "0",
                      major: "0",
                      minor: "0",
-                     pic: "registration.png",
+                     pic: "404.png",
                      info: "Opps, there is no beacons in your region",
                      timeStamp: "0:00"
                     };

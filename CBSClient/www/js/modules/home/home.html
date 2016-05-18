@@ -3,14 +3,14 @@
 
       <div class="list card">
         <div class="item item-avatar">
-          <img src="http://placehold.it/140x100">
+          <img src="img/user-icon.png">
           <h2>{{userInfo.firstname}} {{userInfo.lastname}}</h2>
           <p>{{mNearestRoom.id}}</p>
           <p>{{mCurrentUserStamp.timeStamp}}</p>
         </div>
 
         <div class="item item-body">
-          <img class="full-image" src="http://placehold.it/350x150">
+          <img class="full-image" ng-src="img/{{mNearestRoom.pic}}">
           <p>{{mNearestRoom.info}}</p>
         </div>
       </div>

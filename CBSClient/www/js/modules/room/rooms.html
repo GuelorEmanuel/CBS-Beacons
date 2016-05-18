@@ -6,12 +6,12 @@
   <ion-content class="has-header padding">
     <div class="card">
       <div class="item item-text-wrap text-center item-avatar" ng-class="{mNearestRoom.id}" ng-click="enterRoom(mNearestRoom.id)">
-        <img src="http://placehold.it/140x100">
+        <img src="img/chat.png">
         <strong>{{mNearestRoom.id}}</strong>
       </div>
     </div>
     <div class="item item-body">
-      <img class="full-image" src="http://placehold.it/350x150">
+      <img class="full-image" ng-src="img/{{mNearestRoom.pic}}">
       <p>{{mNearestRoom.info}}</p>
       <strong> While you are waiting, you can click the Room name to socialize with those around you</strong>
     </div>
