@@ -25,8 +25,8 @@ getting started: client Side
   ```
   
 - If the client side is unable to connect to the server when trying to login:
-- Try to ping the the droplet, if unable to then this the server might have crashed or that the server is not longer being
-- hosted on digital( try spinning up your own server).
+- Try to ping the the droplet, if unable to then the server might have crashed or the server is no longer being
+- hosted on digital ocean( try spinning up your own server).
   
   ```sh
    ping 159.203.18.207
